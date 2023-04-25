@@ -73,6 +73,7 @@ struct GenerateRecipeScreen: View {
                             isGeneratingRecipe = true
                             Task {
                                 recipe = await createRecipe(with: ingredients, exclusively: exclusively)
+                                isGeneratingRecipe = false
                             }
                         } label: {
                             Text(notEnoughIngredients ? "\(ingredients.count)/\(MIN_INGREDIENTS_WHEN_EXCLUSIVELY) Ingredients" : "Generate Recipe")

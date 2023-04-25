@@ -66,6 +66,7 @@
 		7960B81C29F86687001753E2 /* DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImage.swift; sourceTree = "<group>"; };
 		7960B81F29F870A8001753E2 /* Recipe+InitFromDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+InitFromDecoder.swift"; sourceTree = "<group>"; };
 		7960B82129F871FC001753E2 /* CreateRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipe.swift; sourceTree = "<group>"; };
+		7960B82329F87F2B001753E2 /* WhatToEat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WhatToEat.entitlements; sourceTree = "<group>"; };
 		79FB93A829F53E7200F58CD3 /* DiataryPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiataryPattern.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +109,7 @@
 		79004A4929F16D2B0055DCBC /* WhatToEat */ = {
 			isa = PBXGroup;
 			children = (
+				7960B82329F87F2B001753E2 /* WhatToEat.entitlements */,
 				79004A5829F16D2C0055DCBC /* Info.plist */,
 				79004A4A29F16D2B0055DCBC /* WhatToEatApp.swift */,
 				79004A4E29F16D2C0055DCBC /* Assets.xcassets */,
@@ -474,6 +476,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WhatToEat/WhatToEat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WhatToEat/Preview Content\"";
@@ -504,6 +507,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WhatToEat/WhatToEat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WhatToEat/Preview Content\"";
