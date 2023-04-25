@@ -18,8 +18,14 @@ struct RecipeScreen: View {
         ScrollView {
             header
             VStack {
+                metaDataSection
+                    .padding()
+                Divider()
+                    .padding(.horizontal)
                 ingredientSection
                     .padding()
+                Divider()
+                    .padding(.horizontal)
                 instructionSection
                     .padding()
             }
@@ -52,9 +58,12 @@ struct RecipeScreen: View {
                         .padding()
                 }
         }
-        .clipped()
-        .frame(height: 400)
-        .edgesIgnoringSafeArea(.all)
+    }
+    
+    var metaDataSection: some View {
+        HStack {
+            Label("\(recipe.time) min", systemImage: "stopwatch")
+        }
     }
     
     var ingredientSection: some View {
@@ -66,7 +75,6 @@ struct RecipeScreen: View {
                     HStack(spacing: 15) {
                         Text("·")
                         Text("\(ingredient)")
-                            .fontWeight(.medium)
                     }
                 }
             }

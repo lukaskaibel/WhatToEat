@@ -18,6 +18,7 @@ public func createRecipe(with ingredients: [String], exclusively: Bool = false) 
             name: recipe.name,
             ingredients: recipe.ingredients,
             instructions: recipe.instructions,
+            time: recipe.time,
             imageUrl: recipe.imageUrl
         )
         return recipe
@@ -31,8 +32,8 @@ internal func requestRecipeJSON(with ingredients: [String], exclusively: Bool = 
         """
             I have the following ingredients: \(ingredients.joined(separator: ", ")).
             Please suggest a recipe \(exclusively ? "that ONLY uses those ingredients" : "").
-            Return just a JSON object with the name, ingredients and instructions'.
-            Make sure that the JSON keys are exactly as I wrote them and that ingredients and instructions are lists!
+            Return just a JSON object with the name, ingredients, instructions and required time (in minutes).
+            Make sure that ingredients and instructions are lists!
         """
     Logger().info("Making GPT request with prompt: \(prompt)")
     let response = try await makeGptRequest(prompt: prompt)
@@ -61,7 +62,7 @@ internal func convertJSONToRecipe(from recipeJSON: String) async throws -> Recip
         do {
             let downloadedImageURL = try await downloadImage(from: imageURL)
             Logger().info("Created recipe: \(recipe)")
-            recipe = Recipe(id: UUID(), name: recipe.name, ingredients: recipe.ingredients, instructions: recipe.instructions, imageUrl: downloadedImageURL)
+            recipe = Recipe(id: UUID(), name: recipe.name, ingredients: recipe.ingredients, instructions: recipe.instructions, time: recipe.time, imageUrl: downloadedImageURL)
         } catch {
             Logger().error("Error downloading image: \(error.localizedDescription)")
         }

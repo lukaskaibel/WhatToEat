@@ -51,6 +51,12 @@ extension Recipe {
         } else {
             throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath, debugDescription: "No matching key found for 'instructions' property"))
         }
+        
+        if let key = findKey("time", in: container) {
+            time = try container.decode(Int.self, forKey: key)
+        } else {
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath, debugDescription: "No matching key found for 'time' property"))
+        }
 
         if let key = findKey("imageUrl", in: container) {
             imageUrl = try container.decodeIfPresent(URL.self, forKey: key)
