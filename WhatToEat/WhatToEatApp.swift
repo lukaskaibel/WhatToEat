@@ -19,7 +19,7 @@ struct WhatToEatApp: App {
                 }
                 .tabItem { Label("Eat Now", systemImage: "fork.knife") }
                 NavigationStack {
-                    MakeRecipeScreen()
+                    GenerateRecipeScreen()
                 }
                 .tabItem { Label("Create", systemImage: "plus") }
                 NavigationStack {

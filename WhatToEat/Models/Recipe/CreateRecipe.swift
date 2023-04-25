@@ -8,21 +8,30 @@
 import Foundation
 import OSLog
 
-public func createRecipe(with ingredients: [String]) async -> Recipe? {
+public func createRecipe(with ingredients: [String], exclusively: Bool = false) async -> Recipe? {
     do {
-        let recipeJSON = try await requestRecipeJSON(with: ingredients)
+        let recipeJSON = try await requestRecipeJSON(with: ingredients, exclusively: exclusively)
         guard let recipeJSON = recipeJSON else { return nil }
-        return try await convertJSONToRecipe(from: recipeJSON)
+        guard let recipe = try await convertJSONToRecipe(from: recipeJSON) else { return nil }
+        PersistenceController.shared.createRecipe(
+            id: recipe.id,
+            name: recipe.name,
+            ingredients: recipe.ingredients,
+            instructions: recipe.instructions,
+            imageUrl: recipe.imageUrl
+        )
+        return recipe
     } catch {
         return nil
     }
 }
 
-internal func requestRecipeJSON(with ingredients: [String]) async throws -> String? {
+internal func requestRecipeJSON(with ingredients: [String], exclusively: Bool = false) async throws -> String? {
     let prompt =
         """
             I have the following ingredients: \(ingredients.joined(separator: ", ")).
-            Please suggest a recipe and return only a JSON object with the name, ingredients and instructions'. Write the keys exactly like this!!
+            Please suggest a recipe \(exclusively ? "that ONLY uses those ingredients" : "").
+            Return just a JSON object with the name, ingredients and instructions'.
             Make sure that the JSON keys are exactly as I wrote them and that ingredients and instructions are lists!
         """
     Logger().info("Making GPT request with prompt: \(prompt)")

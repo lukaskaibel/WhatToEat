@@ -18,8 +18,7 @@
 		79004A7529F17CF20055DCBC /* JSONUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79004A7429F17CF20055DCBC /* JSONUtilities.swift */; };
 		79004A7729F180590055DCBC /* DALLERequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79004A7629F180590055DCBC /* DALLERequest.swift */; };
 		79004A7A29F188C70055DCBC /* RecipeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79004A7929F188C70055DCBC /* RecipeScreen.swift */; };
-		79004A7C29F195F60055DCBC /* MakeRecipeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79004A7B29F195F60055DCBC /* MakeRecipeScreen.swift */; };
-		79004A7E29F1A1240055DCBC /* GeneratingRecipeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79004A7D29F1A1240055DCBC /* GeneratingRecipeScreen.swift */; };
+		79004A7C29F195F60055DCBC /* GenerateRecipeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79004A7B29F195F60055DCBC /* GenerateRecipeScreen.swift */; };
 		79004A8029F1E7BF0055DCBC /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79004A7F29F1E7BF0055DCBC /* ProfileScreen.swift */; };
 		79004A8229F1E8150055DCBC /* EatNowScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79004A8129F1E8150055DCBC /* EatNowScreen.swift */; };
 		79004A8529F1E8B90055DCBC /* TextStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79004A8429F1E8B90055DCBC /* TextStyles.swift */; };
@@ -57,8 +56,7 @@
 		79004A7429F17CF20055DCBC /* JSONUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtilities.swift; sourceTree = "<group>"; };
 		79004A7629F180590055DCBC /* DALLERequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DALLERequest.swift; sourceTree = "<group>"; };
 		79004A7929F188C70055DCBC /* RecipeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeScreen.swift; sourceTree = "<group>"; };
-		79004A7B29F195F60055DCBC /* MakeRecipeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRecipeScreen.swift; sourceTree = "<group>"; };
-		79004A7D29F1A1240055DCBC /* GeneratingRecipeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratingRecipeScreen.swift; sourceTree = "<group>"; };
+		79004A7B29F195F60055DCBC /* GenerateRecipeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateRecipeScreen.swift; sourceTree = "<group>"; };
 		79004A7F29F1E7BF0055DCBC /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		79004A8129F1E8150055DCBC /* EatNowScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatNowScreen.swift; sourceTree = "<group>"; };
 		79004A8429F1E8B90055DCBC /* TextStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyles.swift; sourceTree = "<group>"; };
@@ -172,8 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				79004A8129F1E8150055DCBC /* EatNowScreen.swift */,
-				79004A7D29F1A1240055DCBC /* GeneratingRecipeScreen.swift */,
-				79004A7B29F195F60055DCBC /* MakeRecipeScreen.swift */,
+				79004A7B29F195F60055DCBC /* GenerateRecipeScreen.swift */,
 				79004A7F29F1E7BF0055DCBC /* ProfileScreen.swift */,
 				79004A7929F188C70055DCBC /* RecipeScreen.swift */,
 			);
@@ -322,9 +319,8 @@
 				79004A7729F180590055DCBC /* DALLERequest.swift in Sources */,
 				795F5EE529F6EA6300A3717B /* PersistanceController+Preview.swift in Sources */,
 				79004A5429F16D2C0055DCBC /* Persistence.swift in Sources */,
-				79004A7C29F195F60055DCBC /* MakeRecipeScreen.swift in Sources */,
+				79004A7C29F195F60055DCBC /* GenerateRecipeScreen.swift in Sources */,
 				79004A8229F1E8150055DCBC /* EatNowScreen.swift in Sources */,
-				79004A7E29F1A1240055DCBC /* GeneratingRecipeScreen.swift in Sources */,
 				79004A8029F1E7BF0055DCBC /* ProfileScreen.swift in Sources */,
 				7960B82229F871FC001753E2 /* CreateRecipe.swift in Sources */,
 				79004A8829F1EC1A0055DCBC /* Persistance+Recipe.swift in Sources */,

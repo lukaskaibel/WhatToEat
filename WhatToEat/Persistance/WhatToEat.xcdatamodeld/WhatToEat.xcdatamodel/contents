@@ -4,8 +4,8 @@
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="imageUrl" optional="YES" attributeType="URI"/>
-        <attribute name="ingredients" optional="YES" attributeType="Transformable" customClassName="[String]"/>
-        <attribute name="instructions" optional="YES" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="ingredients" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName" customClassName="[String]"/>
+        <attribute name="instructions" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName" customClassName="[String]"/>
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
 </model>
