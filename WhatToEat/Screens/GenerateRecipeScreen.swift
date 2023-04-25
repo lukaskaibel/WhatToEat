@@ -70,6 +70,7 @@ struct GenerateRecipeScreen: View {
                     VStack {
                         Spacer()
                         Button {
+                            isGeneratingRecipe = true
                             Task {
                                 recipe = await createRecipe(with: ingredients, exclusively: exclusively)
                             }
