@@ -35,15 +35,29 @@ final class WhatToEatTests: XCTestCase {
     }
     
     func testRequestRecipeJSON() async throws {
-        let recipeJSON = try await Recipe.requestRecipeJSON(with: ingredients)
+        let recipeJSON = try await requestRecipeJSON(with: ingredients)
         
         XCTAssertNotNil(recipeJSON, "Recipe JSON object is nil")
     }
     
     func testCreateRecipe() async throws {
-        let recipe = await Recipe.create(with: ingredients)
+        let recipe = await createRecipe(with: ingredients)
         XCTAssertNotNil(recipe, "Recipe.create returned nil")
     }
     
+    func testDownloadImage() async throws {
+        let urlString = "https://example.com/image.jpg"
+        guard let url = URL(string: urlString) else {
+            XCTFail("Invalid URL")
+            return
+        }
+
+        do {
+            let destinationURL = try await downloadImage(from: url)
+            XCTAssertTrue(FileManager.default.fileExists(atPath: destinationURL.path), "Downloaded image not found")
+        } catch {
+            XCTFail("Error: \(error)")
+        }
+    }
     
 }

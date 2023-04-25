@@ -26,6 +26,9 @@
 		79004A8829F1EC1A0055DCBC /* Persistance+Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79004A8729F1EC1A0055DCBC /* Persistance+Recipe.swift */; };
 		79004A8B29F1F77F0055DCBC /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79004A8A29F1F77F0055DCBC /* RecipeCell.swift */; };
 		795F5EE529F6EA6300A3717B /* PersistanceController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795F5EE429F6EA6300A3717B /* PersistanceController+Preview.swift */; };
+		7960B81D29F86687001753E2 /* DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7960B81C29F86687001753E2 /* DownloadImage.swift */; };
+		7960B82029F870A8001753E2 /* Recipe+InitFromDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7960B81F29F870A8001753E2 /* Recipe+InitFromDecoder.swift */; };
+		7960B82229F871FC001753E2 /* CreateRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7960B82129F871FC001753E2 /* CreateRecipe.swift */; };
 		79FB93A929F53E7200F58CD3 /* DiataryPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB93A829F53E7200F58CD3 /* DiataryPattern.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +65,9 @@
 		79004A8729F1EC1A0055DCBC /* Persistance+Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Persistance+Recipe.swift"; sourceTree = "<group>"; };
 		79004A8A29F1F77F0055DCBC /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		795F5EE429F6EA6300A3717B /* PersistanceController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistanceController+Preview.swift"; sourceTree = "<group>"; };
+		7960B81C29F86687001753E2 /* DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImage.swift; sourceTree = "<group>"; };
+		7960B81F29F870A8001753E2 /* Recipe+InitFromDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+InitFromDecoder.swift"; sourceTree = "<group>"; };
+		7960B82129F871FC001753E2 /* CreateRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipe.swift; sourceTree = "<group>"; };
 		79FB93A829F53E7200F58CD3 /* DiataryPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiataryPattern.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,7 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				79FB93A829F53E7200F58CD3 /* DiataryPattern.swift */,
-				79004A5E29F16DFE0055DCBC /* Recipe.swift */,
+				7960B81E29F8708C001753E2 /* Recipe */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -140,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				79004A7629F180590055DCBC /* DALLERequest.swift */,
+				7960B81C29F86687001753E2 /* DownloadImage.swift */,
 				79004A6129F16EB20055DCBC /* GPTRequest.swift */,
 			);
 			path = Networking;
@@ -198,6 +205,16 @@
 				79004A8A29F1F77F0055DCBC /* RecipeCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		7960B81E29F8708C001753E2 /* Recipe */ = {
+			isa = PBXGroup;
+			children = (
+				7960B82129F871FC001753E2 /* CreateRecipe.swift */,
+				79004A5E29F16DFE0055DCBC /* Recipe.swift */,
+				7960B81F29F870A8001753E2 /* Recipe+InitFromDecoder.swift */,
+			);
+			path = Recipe;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79004A8B29F1F77F0055DCBC /* RecipeCell.swift in Sources */,
+				7960B81D29F86687001753E2 /* DownloadImage.swift in Sources */,
 				79004A7729F180590055DCBC /* DALLERequest.swift in Sources */,
 				795F5EE529F6EA6300A3717B /* PersistanceController+Preview.swift in Sources */,
 				79004A5429F16D2C0055DCBC /* Persistence.swift in Sources */,
@@ -308,11 +326,13 @@
 				79004A8229F1E8150055DCBC /* EatNowScreen.swift in Sources */,
 				79004A7E29F1A1240055DCBC /* GeneratingRecipeScreen.swift in Sources */,
 				79004A8029F1E7BF0055DCBC /* ProfileScreen.swift in Sources */,
+				7960B82229F871FC001753E2 /* CreateRecipe.swift in Sources */,
 				79004A8829F1EC1A0055DCBC /* Persistance+Recipe.swift in Sources */,
 				79004A4B29F16D2B0055DCBC /* WhatToEatApp.swift in Sources */,
 				79004A5729F16D2C0055DCBC /* WhatToEat.xcdatamodeld in Sources */,
 				79004A5F29F16DFE0055DCBC /* Recipe.swift in Sources */,
 				79FB93A929F53E7200F58CD3 /* DiataryPattern.swift in Sources */,
+				7960B82029F870A8001753E2 /* Recipe+InitFromDecoder.swift in Sources */,
 				79004A8529F1E8B90055DCBC /* TextStyles.swift in Sources */,
 				79004A7A29F188C70055DCBC /* RecipeScreen.swift in Sources */,
 				79004A7529F17CF20055DCBC /* JSONUtilities.swift in Sources */,

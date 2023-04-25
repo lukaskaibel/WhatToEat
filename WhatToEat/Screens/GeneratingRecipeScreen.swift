@@ -13,7 +13,6 @@ struct GeneratingRecipeScreen: View {
     let ingredients: [String]
     
     @State private var recipe: Recipe? = nil
-    @State private var isShowingErrorAlert = false
 
     var body: some View {
         if let recipe = recipe {
@@ -23,11 +22,8 @@ struct GeneratingRecipeScreen: View {
                 ProgressView()
                 Text("Generating Recipe ...")
             }
-//            .alert(isPresented: $isShowingErrorAlert, error: nil) {
-//                Button("OK", role: .cancel) { dismiss() }
-//            }
             .task {
-                guard let recipe = await Recipe.create(with: ingredients) else { isShowingErrorAlert = true; return }
+                guard let recipe = await createRecipe(with: ingredients) else { return }
                 PersistenceController.shared.createRecipe(
                     id: recipe.id,
                     name: recipe.name,
@@ -41,9 +37,3 @@ struct GeneratingRecipeScreen: View {
             
     }
 }
-
-//struct GeneratingRecipeScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GeneratingRecipeScreen(ingredients: ["Pasta", "Olives"])
-//    }
-//}
