@@ -13,8 +13,21 @@ struct WhatToEatApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            TabView {
+                NavigationStack {
+                    EatNowScreen()
+                }
+                .tabItem { Label("Eat Now", systemImage: "fork.knife") }
+                NavigationStack {
+                    MakeRecipeScreen()
+                }
+                .tabItem { Label("Create", systemImage: "plus") }
+                NavigationStack {
+                    ProfileScreen()
+                }
+                .tabItem { Label("Profile", systemImage: "person") }
+            }
+            .environmentObject(persistenceController)
         }
     }
 }
