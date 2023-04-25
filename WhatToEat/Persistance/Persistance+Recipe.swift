@@ -54,7 +54,7 @@ extension PersistenceController {
             return try container.viewContext.fetch(RecipeCD.fetchRequest())
                 .map { Recipe(id: $0.id!, creationDate: $0.creationDate ?? .now, name: $0.name!, ingredients: $0.ingredients!, instructions: $0.instructions!, imageUrl: $0.imageUrl!) }
                 .filter { (nameQuery.isEmpty || $0.name.contains(nameQuery)) && (ingredientQuery.isEmpty || $0.ingredients.joined().contains(ingredientQuery)) }
-                .sorted { $0.creationDate < $1.creationDate }
+                .sorted { $0.creationDate > $1.creationDate }
         } catch {
             Logger().error("Failed to fetch RecipeCDs")
             return nil
