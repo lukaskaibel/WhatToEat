@@ -11,7 +11,7 @@ struct RecipeCell: View {
     let recipe: Recipe
     
     var body: some View {
-        HStack {
+        HStack(spacing: 12) {
             AsyncImage(url: recipe.imageUrl) { image in
                 image
                     .resizable()
@@ -23,13 +23,17 @@ struct RecipeCell: View {
                 ProgressView()
             }
             VStack(alignment: .leading) {
+                Text(recipe.creationDate.formatted(date: .numeric, time: .omitted))
+                    .font(.caption.weight(.semibold))
+                    .foregroundColor(.secondary)
                 Text(recipe.name)
-                    .fontWeight(.bold)
-                Text(recipe.ingredients.joined(separator: " · "))
-                    .lineLimit(2)
+                    .fontWeight(.semibold)
+                    .lineLimit(1)
+                Label("\(recipe.time) min", systemImage: "stopwatch")
             }
         }
-        .padding()
+        .foregroundColor(.primary)
+        .padding(.vertical)
         .clipped()
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .frame(maxWidth: 600, alignment: .leading)

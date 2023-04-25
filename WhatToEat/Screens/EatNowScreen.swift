@@ -15,22 +15,25 @@ struct EatNowScreen: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text("Recently Created")
                     .sectionHeaderStyle()
-                    .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 VStack(spacing: 0) {
                     ForEach(persistenceController.getRecipes() ?? []) { recipe in
                         VStack(spacing: 0) {
-                            RecipeCell(recipe: recipe)
-                                .onTapGesture {
-                                    selectedRecipe = recipe
-                                }
+                            Button {
+                                selectedRecipe = recipe
+                            } label: {
+                                RecipeCell(recipe: recipe)
+                            }
+                            Divider()
+                                .padding(.leading, 72)
                         }
                     }
                 }
             }
+            .padding(.horizontal)
         }
         .navigationTitle("Eat Now")
         .sheet(item: $selectedRecipe) { recipe in

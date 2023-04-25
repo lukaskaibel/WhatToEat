@@ -63,6 +63,7 @@ struct RecipeScreen: View {
     var metaDataSection: some View {
         HStack {
             Label("\(recipe.time) min", systemImage: "stopwatch")
+                .fontWeight(.medium)
         }
     }
     
