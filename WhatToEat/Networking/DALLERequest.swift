@@ -14,7 +14,7 @@ public func makeDALLERequest(for prompt: String) async throws -> URL? {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    request.setValue("Bearer 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", forHTTPHeaderField: "Authorization")
+    request.setValue("Bearer \(OPENAI_API_KEY)", forHTTPHeaderField: "Authorization")
     
     let requestBody = [
         "model": "image-alpha-001",

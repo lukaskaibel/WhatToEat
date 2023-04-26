@@ -28,6 +28,7 @@
 		7960B81D29F86687001753E2 /* DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7960B81C29F86687001753E2 /* DownloadImage.swift */; };
 		7960B82029F870A8001753E2 /* Recipe+InitFromDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7960B81F29F870A8001753E2 /* Recipe+InitFromDecoder.swift */; };
 		7960B82229F871FC001753E2 /* CreateRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7960B82129F871FC001753E2 /* CreateRecipe.swift */; };
+		79D1EFB929F98AD30057216B /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D1EFB829F98AD30057216B /* Secrets.swift */; };
 		79FB93A929F53E7200F58CD3 /* EatingPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB93A829F53E7200F58CD3 /* EatingPattern.swift */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		7960B81F29F870A8001753E2 /* Recipe+InitFromDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+InitFromDecoder.swift"; sourceTree = "<group>"; };
 		7960B82129F871FC001753E2 /* CreateRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipe.swift; sourceTree = "<group>"; };
 		7960B82329F87F2B001753E2 /* WhatToEat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WhatToEat.entitlements; sourceTree = "<group>"; };
+		79D1EFB829F98AD30057216B /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		79FB93A829F53E7200F58CD3 /* EatingPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatingPattern.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +113,7 @@
 			children = (
 				7960B82329F87F2B001753E2 /* WhatToEat.entitlements */,
 				79004A5829F16D2C0055DCBC /* Info.plist */,
+				79D1EFB829F98AD30057216B /* Secrets.swift */,
 				79004A4A29F16D2B0055DCBC /* WhatToEatApp.swift */,
 				79004A4E29F16D2C0055DCBC /* Assets.xcassets */,
 				79004A8629F1EB030055DCBC /* Persistance */,
@@ -317,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79004A8B29F1F77F0055DCBC /* RecipeCell.swift in Sources */,
+				79D1EFB929F98AD30057216B /* Secrets.swift in Sources */,
 				7960B81D29F86687001753E2 /* DownloadImage.swift in Sources */,
 				79004A7729F180590055DCBC /* DALLERequest.swift in Sources */,
 				795F5EE529F6EA6300A3717B /* PersistanceController+Preview.swift in Sources */,
