@@ -31,10 +31,12 @@ extension Recipe {
         func findKey<T: CodingKey>(_ propertyName: String, in container: KeyedDecodingContainer<T>) -> T? {
             return container.allKeys.first(where: { propertyName.lowercased().contains($0.stringValue.lowercased()) })
         }
-
+        
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
-
+        
         if let key = findKey("name", in: container) {
+            name = try container.decode(String.self, forKey: key)
+        } else if let key = findKey("title", in: container) {
             name = try container.decode(String.self, forKey: key)
         } else {
             throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath, debugDescription: "No matching key found for 'name' property"))

@@ -9,12 +9,12 @@ import SwiftUI
 
 struct ProfileScreen: View {
     
-    @AppStorage("diataryPattern") var diataryPattern: DiataryPattern = .unrestricted
+    @AppStorage("eatingPattern") var eatingPattern: EatingPattern = .unrestricted
     
     var body: some View {
         List {
-            Picker("Diatary Pattern", selection: $diataryPattern) {
-                ForEach(DiataryPattern.allCases) { diataryPattern in
+            Picker("Eating Pattern", selection: $eatingPattern) {
+                ForEach(EatingPattern.allCases) { diataryPattern in
                     Text(diataryPattern.rawValue.capitalized)
                         .tag(diataryPattern)
                 }

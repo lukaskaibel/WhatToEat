@@ -8,9 +8,9 @@
 import Foundation
 import OSLog
 
-public func createRecipe(with ingredients: [String], exclusively: Bool = false) async -> Recipe? {
+public func createRecipe(exclusively: Bool = false, with ingredients: [String], thatIs eatingPattern: EatingPattern = .unrestricted) async -> Recipe? {
     do {
-        let recipeJSON = try await requestRecipeJSON(with: ingredients, exclusively: exclusively)
+        let recipeJSON = try await requestRecipeJSON(exclusively: exclusively, with: ingredients, thatIs: eatingPattern)
         guard let recipeJSON = recipeJSON else { return nil }
         guard let recipe = try await convertJSONToRecipe(from: recipeJSON) else { return nil }
         PersistenceController.shared.createRecipe(
@@ -27,11 +27,14 @@ public func createRecipe(with ingredients: [String], exclusively: Bool = false) 
     }
 }
 
-internal func requestRecipeJSON(with ingredients: [String], exclusively: Bool = false) async throws -> String? {
+internal func requestRecipeJSON(exclusively: Bool = false, with ingredients: [String], thatIs eatingPattern: EatingPattern = .unrestricted) async throws -> String? {
     let prompt =
         """
-            I have the following ingredients: \(ingredients.joined(separator: ", ")).
-            Please suggest a recipe \(exclusively ? "that ONLY uses those ingredients" : "").
+            \(ingredients.isEmpty ? "" : "I have the following ingredients: \(ingredients.joined(separator: ", ")).")
+            Please suggest a great tasting \(eatingPattern == .unrestricted ? "" : eatingPattern.rawValue) recipe \(exclusively ? "that ONLY uses those ingredients" : "").
+            You don't need to use all ingredients if they don't fit.
+            \(eatingPattern == .unrestricted ? "" : "Make sure to that the recipe is \(eatingPattern.rawValue).")
+            Please get creative with the name.
             Return just a JSON object with the name, ingredients, instructions and required time (in minutes).
             Make sure that ingredients and instructions are lists!
         """
@@ -54,7 +57,7 @@ internal func convertJSONToRecipe(from recipeJSON: String) async throws -> Recip
         let jsonData = recipeJSON.data(using: .utf8)!
         var recipe = try jsonDecoder.decode(Recipe.self, from: jsonData)
         
-        let imageUrl = try await makeDALLERequest(for: "\(recipe.name) with ingredients: \(recipe.ingredients.joined(separator: ", "))")
+        let imageUrl = try await makeDALLERequest(for: "\(recipe.name) with ingredients: \(recipe.ingredients.joined(separator: ", ")). The dish should be the focus of the image.")
         
         guard let imageURLString = imageUrl?.absoluteString else { return nil }
         let imageURL = URL(string: imageURLString)!

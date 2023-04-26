@@ -10,13 +10,10 @@ import SwiftUI
 private let MIN_INGREDIENTS_WHEN_EXCLUSIVELY = 3
 
 struct GenerateRecipeScreen: View {
-    
+        
     @State private var enteredIngredient: String = ""
-    @State private var ingredients = [String]() {
-        didSet {
-            
-        }
-    }
+    @State private var ingredients = [String]()
+    @State private var eatingPattern: EatingPattern = EatingPattern(rawValue: UserDefaults.standard.object(forKey: "eatingPattern") as? String ?? "") ?? .unrestricted
     @State private var exclusively = false
     @State private var isGeneratingRecipe = false
     @State private var recipe: Recipe? = nil
@@ -35,6 +32,16 @@ struct GenerateRecipeScreen: View {
             } else {
                 List {
                     Section {
+                        Picker("Eating Pattern", selection: $eatingPattern) {
+                            ForEach(EatingPattern.allCases) { diataryPattern in
+                                Text(diataryPattern.rawValue.capitalized)
+                                    .tag(diataryPattern)
+                            }
+                        }
+                    } footer: {
+                        Text("Mind that the ingredients you enter should fit your eating pattern.")
+                    }
+                    Section {
                         ForEach($ingredients, id: \.self) { ingredient in
                             TextField("", text: ingredient)
                         }
@@ -47,6 +54,7 @@ struct GenerateRecipeScreen: View {
                                 }
                                 enteredIngredient = ""
                             }
+                            .scrollDismissesKeyboard(.interactively)
                     } header: {
                         HStack {
                             Text("What's in your pantry?")
@@ -65,14 +73,11 @@ struct GenerateRecipeScreen: View {
                     } footer: {
                         Text("When toggled on enter at least 3 ingredients.")
                     }
-                }
-                .overlay {
-                    VStack {
-                        Spacer()
+                    Section {
                         Button {
                             isGeneratingRecipe = true
                             Task {
-                                recipe = await createRecipe(with: ingredients, exclusively: exclusively)
+                                recipe = await createRecipe(exclusively: exclusively, with: ingredients, thatIs: eatingPattern)
                                 isGeneratingRecipe = false
                             }
                         } label: {
@@ -80,14 +85,16 @@ struct GenerateRecipeScreen: View {
                                 .fontWeight(.semibold)
                                 .foregroundColor(.white)
                                 .padding()
-                                .frame(maxWidth: 350)
+                                .frame(maxWidth: 400)
                                 .background(Color.accentColor)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
-                        .padding()
-                        .padding(.bottom, 30)
                         .disabled(ingredients.isEmpty || notEnoughIngredients)
+                        .frame(maxWidth: .infinity)
                     }
+                    .padding(.vertical, 30)
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
                 }
             }
         }
