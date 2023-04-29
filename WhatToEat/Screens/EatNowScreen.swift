@@ -15,6 +15,21 @@ struct EatNowScreen: View {
     
     var body: some View {
         ScrollView {
+            VStack(alignment: .leading) {
+                Text(dateNowFormatted.uppercased())
+                    .font(.footnote.weight(.bold))
+                    .foregroundColor(.secondary)
+                Text("Eat Now")
+                    .font(.largeTitle.weight(.bold))
+            }
+            .padding()
+            .padding(.top)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            RecipeTyleView(recipe: Recipe.test, title: "Weekly Recipe", subtitle: "UPDATED ON MONDAY")
+                .onTapGesture {
+                    selectedRecipe = Recipe.test
+                }
+                .padding(.horizontal)
             VStack(alignment: .leading, spacing: 0) {
                 Text("Recently Created")
                     .sectionHeaderStyle()
@@ -33,13 +48,21 @@ struct EatNowScreen: View {
                     }
                 }
             }
-            .padding(.horizontal)
+            .padding()
+            .tileStyle()
+            .padding()
         }
-        .navigationTitle("Eat Now")
         .sheet(item: $selectedRecipe) { recipe in
             RecipeScreen(recipe: recipe)
         }
     }
+    
+    private var dateNowFormatted: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE dd MMMM"
+        return dateFormatter.string(from: Date())
+    }
+    
 }
 
 struct EatNowScreen_Previews: PreviewProvider {
