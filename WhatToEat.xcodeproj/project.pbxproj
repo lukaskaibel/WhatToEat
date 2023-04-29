@@ -30,6 +30,9 @@
 		7960B82229F871FC001753E2 /* CreateRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7960B82129F871FC001753E2 /* CreateRecipe.swift */; };
 		798D1CF329FD401B00BFE210 /* MyRecipesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798D1CF229FD401B00BFE210 /* MyRecipesScreen.swift */; };
 		798D1CFB29FD4EBD00BFE210 /* RecentRecipesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798D1CFA29FD4EBD00BFE210 /* RecentRecipesScreen.swift */; };
+		798D1CFD29FD563F00BFE210 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798D1CFC29FD563F00BFE210 /* StepView.swift */; };
+		798D1CFF29FD614A00BFE210 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798D1CFE29FD614A00BFE210 /* SectionView.swift */; };
+		798D1D0129FD632400BFE210 /* ViewStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798D1D0029FD632400BFE210 /* ViewStyles.swift */; };
 		79D1EFB929F98AD30057216B /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D1EFB829F98AD30057216B /* Secrets.swift */; };
 		79FB93A929F53E7200F58CD3 /* EatingPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB93A829F53E7200F58CD3 /* EatingPattern.swift */; };
 /* End PBXBuildFile section */
@@ -72,6 +75,9 @@
 		7960B82329F87F2B001753E2 /* WhatToEat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WhatToEat.entitlements; sourceTree = "<group>"; };
 		798D1CF229FD401B00BFE210 /* MyRecipesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecipesScreen.swift; sourceTree = "<group>"; };
 		798D1CFA29FD4EBD00BFE210 /* RecentRecipesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRecipesScreen.swift; sourceTree = "<group>"; };
+		798D1CFC29FD563F00BFE210 /* StepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
+		798D1CFE29FD614A00BFE210 /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
+		798D1D0029FD632400BFE210 /* ViewStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStyles.swift; sourceTree = "<group>"; };
 		79D1EFB829F98AD30057216B /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		79FB93A829F53E7200F58CD3 /* EatingPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatingPattern.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				79004A8429F1E8B90055DCBC /* TextStyles.swift */,
+				798D1D0029FD632400BFE210 /* ViewStyles.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -211,6 +218,8 @@
 			isa = PBXGroup;
 			children = (
 				79004A8A29F1F77F0055DCBC /* RecipeCell.swift */,
+				798D1CFE29FD614A00BFE210 /* SectionView.swift */,
+				798D1CFC29FD563F00BFE210 /* StepView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -325,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				798D1D0129FD632400BFE210 /* ViewStyles.swift in Sources */,
 				79004A8B29F1F77F0055DCBC /* RecipeCell.swift in Sources */,
 				79D1EFB929F98AD30057216B /* Secrets.swift in Sources */,
 				7960B81D29F86687001753E2 /* DownloadImage.swift in Sources */,
@@ -334,6 +344,7 @@
 				798D1CF329FD401B00BFE210 /* MyRecipesScreen.swift in Sources */,
 				79004A7C29F195F60055DCBC /* GenerateRecipeScreen.swift in Sources */,
 				79004A8229F1E8150055DCBC /* EatNowScreen.swift in Sources */,
+				798D1CFD29FD563F00BFE210 /* StepView.swift in Sources */,
 				79004A8029F1E7BF0055DCBC /* ProfileScreen.swift in Sources */,
 				798D1CFB29FD4EBD00BFE210 /* RecentRecipesScreen.swift in Sources */,
 				7960B82229F871FC001753E2 /* CreateRecipe.swift in Sources */,
@@ -344,6 +355,7 @@
 				79FB93A929F53E7200F58CD3 /* EatingPattern.swift in Sources */,
 				7960B82029F870A8001753E2 /* Recipe+InitFromDecoder.swift in Sources */,
 				79004A8529F1E8B90055DCBC /* TextStyles.swift in Sources */,
+				798D1CFF29FD614A00BFE210 /* SectionView.swift in Sources */,
 				79004A7A29F188C70055DCBC /* RecipeScreen.swift in Sources */,
 				79004A7529F17CF20055DCBC /* JSONUtilities.swift in Sources */,
 				79004A6229F16EB20055DCBC /* GPTRequest.swift in Sources */,

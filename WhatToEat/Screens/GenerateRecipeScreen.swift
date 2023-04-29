@@ -17,6 +17,8 @@ struct GenerateRecipeScreen: View {
     @State private var exclusively = false
     @State private var isGeneratingRecipe = false
     @State private var recipe: Recipe? = nil
+    @State private var currentStep: Int = 0
+    @FocusState private var addIngredientIsFocused: Bool
     
     private var notEnoughIngredients: Bool {
         exclusively && ingredients.count < MIN_INGREDIENTS_WHEN_EXCLUSIVELY
@@ -30,71 +32,19 @@ struct GenerateRecipeScreen: View {
                     Text("Generating Recipe ...")
                 }
             } else {
-                List {
-                    Section {
-                        Picker("Eating Pattern", selection: $eatingPattern) {
-                            ForEach(EatingPattern.allCases) { diataryPattern in
-                                Text(diataryPattern.rawValue.capitalized)
-                                    .tag(diataryPattern)
-                            }
+                StepView(
+                    currentStep: $currentStep,
+                    contents: [AnyView(personalProfileStep), AnyView(ingredientsStep)],
+                    continueText: currentStep < 1 ? "Continue" : notEnoughIngredients ? "\(ingredients.count)/\(MIN_INGREDIENTS_WHEN_EXCLUSIVELY) Ingredients" : "Generate Recipe",
+                    backText: "Back"
+                ) {
+                    if currentStep == 1 {
+                        isGeneratingRecipe = true
+                        Task {
+                            recipe = await createRecipe(exclusively: exclusively, with: ingredients, thatIs: eatingPattern)
+                            isGeneratingRecipe = false
                         }
-                    } footer: {
-                        Text("Mind that the ingredients you enter should fit your eating pattern.")
                     }
-                    Section {
-                        ForEach($ingredients, id: \.self) { ingredient in
-                            TextField("", text: ingredient)
-                        }
-                        .onDelete { ingredients.remove(atOffsets: $0) }
-                        TextField("Add Ingredient", text: $enteredIngredient)
-                            .onSubmit {
-                                guard !enteredIngredient.isEmpty else { return }
-                                withAnimation {
-                                    ingredients.append(enteredIngredient)
-                                }
-                                enteredIngredient = ""
-                            }
-                            .scrollDismissesKeyboard(.interactively)
-                    } header: {
-                        HStack {
-                            Text("What's in your pantry?")
-                                .sectionHeaderStyle()
-                                .padding(.bottom, 5)
-                            Spacer()
-                            EditButton()
-                                .textCase(nil)
-                                .disabled(ingredients.isEmpty)
-                        }
-                    } footer: {
-                        Text("Enter the ingredients you want to use.")
-                    }
-                    Section {
-                        Toggle("Only Use These", isOn: $exclusively)
-                    } footer: {
-                        Text("When toggled on enter at least 3 ingredients.")
-                    }
-                    Section {
-                        Button {
-                            isGeneratingRecipe = true
-                            Task {
-                                recipe = await createRecipe(exclusively: exclusively, with: ingredients, thatIs: eatingPattern)
-                                isGeneratingRecipe = false
-                            }
-                        } label: {
-                            Text(notEnoughIngredients ? "\(ingredients.count)/\(MIN_INGREDIENTS_WHEN_EXCLUSIVELY) Ingredients" : "Generate Recipe")
-                                .fontWeight(.semibold)
-                                .foregroundColor(.white)
-                                .padding()
-                                .frame(maxWidth: 400)
-                                .background(Color.accentColor)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
-                        .disabled(ingredients.isEmpty || notEnoughIngredients)
-                        .frame(maxWidth: .infinity)
-                    }
-                    .padding(.vertical, 30)
-                    .listRowInsets(EdgeInsets())
-                    .listRowBackground(Color.clear)
                 }
             }
         }
@@ -102,6 +52,60 @@ struct GenerateRecipeScreen: View {
         .sheet(item: $recipe) { recipe in
             RecipeScreen(recipe: recipe)
         }
+    }
+    
+    private var personalProfileStep: some View {
+        SectionView(title: "Personal Profile") {
+            HStack {
+                Text("Eating Pattern")
+                Spacer()
+                Picker("Eating Pattern", selection: $eatingPattern) {
+                    ForEach(EatingPattern.allCases) { diataryPattern in
+                        Text(diataryPattern.rawValue.capitalized)
+                            .tag(diataryPattern)
+                    }
+                }
+            }
+        }
+        .padding()
+        .tileStyle()
+        .padding()
+    }
+    
+    private var ingredientsStep: some View {
+        SectionView(title: "Whats in your Pantry?") {
+            ScrollView {
+                VStack {
+                    ForEach($ingredients, id: \.self) { ingredient in
+                        HStack {
+                            Text("·")
+                            TextField("", text: ingredient)
+                                .onSubmit {
+                                    guard !enteredIngredient.isEmpty else { return }
+                                    withAnimation {
+                                        ingredients.append(enteredIngredient)
+                                    }
+                                    enteredIngredient = ""
+                                }
+                        }
+                    }
+                    .onDelete { ingredients.remove(atOffsets: $0) }
+                    TextField("Add Ingredient", text: $enteredIngredient)
+                        .onSubmit {
+                            guard !enteredIngredient.isEmpty else { return }
+                            withAnimation {
+                                ingredients.append(enteredIngredient)
+                            }
+                            enteredIngredient = ""
+                            addIngredientIsFocused = true
+                        }
+                        .focused($addIngredientIsFocused)
+                }
+            }
+        }
+        .padding()
+        .tileStyle()
+        .padding()
     }
 }
 
