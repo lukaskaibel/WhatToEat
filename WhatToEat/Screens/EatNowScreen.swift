@@ -20,7 +20,7 @@ struct EatNowScreen: View {
                     .sectionHeaderStyle()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 VStack(spacing: 0) {
-                    ForEach(persistenceController.getRecipes() ?? []) { recipe in
+                    ForEach((persistenceController.getRecipes() ?? []).prefix(3)) { recipe in
                         VStack(spacing: 0) {
                             Button {
                                 selectedRecipe = recipe

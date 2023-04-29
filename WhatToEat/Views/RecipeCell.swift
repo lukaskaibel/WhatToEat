@@ -22,7 +22,7 @@ struct RecipeCell: View {
             } placeholder: {
                 ProgressView()
             }
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 2) {
                 HStack {
                     Text(recipe.creationDate.formatted(date: .numeric, time: .omitted))
                     Spacer()

@@ -13,10 +13,17 @@ struct ProfileScreen: View {
     
     var body: some View {
         List {
-            Picker("Eating Pattern", selection: $eatingPattern) {
-                ForEach(EatingPattern.allCases) { diataryPattern in
-                    Text(diataryPattern.rawValue.capitalized)
-                        .tag(diataryPattern)
+            Section {
+                Picker("Eating Pattern", selection: $eatingPattern) {
+                    ForEach(EatingPattern.allCases) { diataryPattern in
+                        Text(diataryPattern.rawValue.capitalized)
+                            .tag(diataryPattern)
+                    }
+                }
+            }
+            Section {
+                NavigationLink(destination: RecentRecipesScreen()) {
+                    Text("Recent Recipes")
                 }
             }
         }
@@ -26,6 +33,9 @@ struct ProfileScreen: View {
 
 struct ProfileScreen_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileScreen()
+        NavigationView {
+            ProfileScreen()
+        }
+        .environmentObject(PersistenceController.preview)
     }
 }

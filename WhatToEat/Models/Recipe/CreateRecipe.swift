@@ -35,7 +35,7 @@ internal func requestRecipeJSON(exclusively: Bool = false, with ingredients: [St
             Please suggest a great tasting \(eatingPattern == .unrestricted ? "" : eatingPattern.rawValue) recipe \(exclusively ? "that ONLY uses those ingredients" : "").
             You don't need to use all ingredients if they don't fit.
             \(eatingPattern == .unrestricted ? "" : "Make sure to that the recipe is \(eatingPattern.rawValue).")
-            Please get creative with the name.
+            Please get creative with the name and make the name max. 30 characters long.
             Return just a JSON object with the name, ingredients, instructions and required time (in minutes).
             Make sure that ingredients and instructions are lists!
         """

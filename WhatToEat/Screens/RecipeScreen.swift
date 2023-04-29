@@ -43,6 +43,7 @@ struct RecipeScreen: View {
                         HStack {
                             Text("\(recipe.name)")
                                 .font(.largeTitle.weight(.bold))
+                                .lineLimit(2)
                             Spacer()
                             Button {
                                 persistenceController.updateRecipe(with: recipe.id,
