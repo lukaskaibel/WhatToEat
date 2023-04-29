@@ -16,8 +16,9 @@ public struct Recipe: Decodable, Identifiable {
     let instructions: [String]
     let time: Int
     let imageUrl: URL?
+    let isAdded: Bool
     
-    public init(id: UUID, creationDate: Date = .now, name: String, ingredients: [String], instructions: [String], time : Int, imageUrl: URL?) {
+    public init(id: UUID, creationDate: Date = .now, name: String, ingredients: [String], instructions: [String], time : Int, imageUrl: URL?, isAdded: Bool) {
         self.id = id
         self.creationDate = creationDate
         self.name = name
@@ -25,6 +26,7 @@ public struct Recipe: Decodable, Identifiable {
         self.instructions = instructions
         self.time = time
         self.imageUrl = imageUrl
+        self.isAdded = isAdded
     }
     
 }
@@ -48,6 +50,8 @@ extension Recipe {
                 "Stir to combine and serve!"
             ],
             time: 15,
-            imageUrl: URL(string: "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F19%2F2014%2F01%2F31%2Fgrape-tomato-olive-spinach-pasta-ck-x.jpg&q=60"))
+            imageUrl: URL(string: "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F19%2F2014%2F01%2F31%2Fgrape-tomato-olive-spinach-pasta-ck-x.jpg&q=60"),
+            isAdded: true
+        )
     }
 }

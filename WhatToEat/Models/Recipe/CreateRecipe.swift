@@ -19,7 +19,8 @@ public func createRecipe(exclusively: Bool = false, with ingredients: [String], 
             ingredients: recipe.ingredients,
             instructions: recipe.instructions,
             time: recipe.time,
-            imageUrl: recipe.imageUrl
+            imageUrl: recipe.imageUrl,
+            isAdded: false
         )
         return recipe
     } catch {
@@ -65,7 +66,7 @@ internal func convertJSONToRecipe(from recipeJSON: String) async throws -> Recip
         do {
             let downloadedImageURL = try await downloadImage(from: imageURL)
             Logger().info("Created recipe: \(recipe)")
-            recipe = Recipe(id: UUID(), name: recipe.name, ingredients: recipe.ingredients, instructions: recipe.instructions, time: recipe.time, imageUrl: downloadedImageURL)
+            recipe = Recipe(id: UUID(), name: recipe.name, ingredients: recipe.ingredients, instructions: recipe.instructions, time: recipe.time, imageUrl: downloadedImageURL, isAdded: false)
         } catch {
             Logger().error("Error downloading image: \(error.localizedDescription)")
         }

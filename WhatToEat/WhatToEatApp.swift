@@ -23,6 +23,10 @@ struct WhatToEatApp: App {
                 }
                 .tabItem { Label("Create", systemImage: "plus") }
                 NavigationStack {
+                    MyRecipesScreen()
+                }
+                .tabItem { Label("My Recipes", systemImage: "book.closed.fill") }
+                NavigationStack {
                     ProfileScreen()
                 }
                 .tabItem { Label("Profile", systemImage: "person") }

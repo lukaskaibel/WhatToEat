@@ -11,7 +11,7 @@ struct RecipeScreen: View {
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var persistenceController: PersistenceController
-    
+        
     let recipe: Recipe
     
     var body: some View {
@@ -40,11 +40,26 @@ struct RecipeScreen: View {
                 .overlay {
                     ZStack {
                         LinearGradient(colors: [.clear, .black], startPoint: .center, endPoint: .bottom)
-                        Text("\(recipe.name)")
-                            .font(.largeTitle.weight(.bold))
-                            .foregroundStyle(.white)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-                            .padding()
+                        HStack {
+                            Text("\(recipe.name)")
+                                .font(.largeTitle.weight(.bold))
+                            Spacer()
+                            Button {
+                                persistenceController.updateRecipe(with: recipe.id,
+                                                                   name: recipe.name,
+                                                                   ingredients: recipe.ingredients,
+                                                                   instructions: recipe.instructions,
+                                                                   time: recipe.time,
+                                                                   imageUrl: recipe.imageUrl,
+                                                                   isAdded: !recipe.isAdded)
+                            } label: {
+                                Image(systemName: recipe.isAdded ? "checkmark.circle.fill" : "plus.circle")
+                                    .font(.title)
+                            }
+                        }
+                        .foregroundStyle(.white.opacity(0.95))
+                        .padding()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                     }
                 }
         } placeholder: {

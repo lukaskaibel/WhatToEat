@@ -69,6 +69,7 @@ extension Recipe {
         // Generate new UUID for id
         id = UUID()
         creationDate = .now
+        isAdded = false
     }
     
 }

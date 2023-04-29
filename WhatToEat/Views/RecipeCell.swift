@@ -23,9 +23,15 @@ struct RecipeCell: View {
                 ProgressView()
             }
             VStack(alignment: .leading) {
-                Text(recipe.creationDate.formatted(date: .numeric, time: .omitted))
-                    .font(.caption.weight(.semibold))
-                    .foregroundColor(.secondary)
+                HStack {
+                    Text(recipe.creationDate.formatted(date: .numeric, time: .omitted))
+                    Spacer()
+                    if recipe.isAdded {
+                        Image(systemName: "checkmark.circle")
+                    }
+                }
+                .font(.caption.weight(.semibold))
+                .foregroundColor(.secondary)
                 Text(recipe.name)
                     .fontWeight(.semibold)
                     .lineLimit(1)
