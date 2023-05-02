@@ -34,7 +34,7 @@ struct StepView: View {
             HStack(spacing: 20) {
                 ForEach(0..<contents.count, id:\.self) { stepIndex in
                     Circle()
-                        .fill(stepIndex <= currentStep ? Color.accentColor : Color.secondary)
+                        .fill(stepIndex == currentStep ? Color.primary : Color(uiColor: UIColor.placeholderText))
                         .frame(width: 8, height: 8)
                         .onTapGesture {
                             currentStep = stepIndex

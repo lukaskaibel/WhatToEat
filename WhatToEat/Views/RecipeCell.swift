@@ -39,12 +39,10 @@ struct RecipeCell: View {
                     Label("\(recipe.time) min", systemImage: "stopwatch")
                     Divider()
                         .frame(height: 20)
-                    if recipe.eatingPattern != .unrestricted {
-                        Label {
-                            Text(recipe.eatingPattern.rawValue.capitalized)
-                        } icon: {
-                            Symbol.symbol(for: recipe.eatingPattern)
-                        }
+                    Label {
+                        Text(recipe.eatingPattern.rawValue.capitalized)
+                    } icon: {
+                        Symbol.symbol(for: recipe.eatingPattern)
                     }
                 }
             }
