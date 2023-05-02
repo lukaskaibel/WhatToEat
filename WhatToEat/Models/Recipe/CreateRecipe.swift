@@ -40,15 +40,12 @@ internal func requestRecipeJSON(exclusively: Bool = false, with ingredients: [St
             Return just a JSON object with the name, ingredients, instructions, required time (in minutes) and eatingPattern (\(EatingPattern.allCases.map({ $0.rawValue }).joined(separator: ", ")).
             Make sure that ingredients and instructions are lists and that the JSON keys are spelled EXACTLY as above!
         """
-    Logger().info("Making GPT request with prompt: \(prompt)")
     let response = try await makeGptRequest(prompt: prompt)
     guard let response = response else {
         Logger().error("GPT request returned nil")
         return nil
     }
-    Logger().debug("Received GPT response: \(response)")
     let recipeJSON = extractJsonFromString(response)
-    Logger().debug("Extracted recipe JSON: \(recipeJSON ?? "nil")")
     return recipeJSON
 }
 
@@ -76,12 +73,12 @@ internal func convertJSONToRecipe(from recipeJSON: String) async throws -> Recip
                             imageUrl: downloadedImageURL,
                             isAdded: false)
         } catch {
-            Logger().error("Error downloading image: \(error.localizedDescription)")
+            Logger().error("Error downloading image: \(String(describing: error))")
         }
         
         return recipe
     } catch {
-        Logger().error("Error decoding recipe JSON: \(error.localizedDescription)")
+        Logger().error("Error decoding recipe JSON: \(String(describing: error))")
         throw error
     }
 }

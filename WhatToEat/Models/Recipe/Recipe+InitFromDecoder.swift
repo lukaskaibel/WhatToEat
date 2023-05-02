@@ -29,7 +29,7 @@ extension Recipe {
     public init(from decoder: Decoder) throws {
         // Helper function to find a matching key, checking if the key is contained in the property name
         func findKey<T: CodingKey>(_ propertyName: String, in container: KeyedDecodingContainer<T>) -> T? {
-            return container.allKeys.first(where: { propertyName.lowercased().contains($0.stringValue.lowercased()) })
+            return container.allKeys.first(where: { $0.stringValue.lowercased().contains(propertyName.lowercased()) })
         }
         
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
@@ -41,7 +41,7 @@ extension Recipe {
         } else {
             throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath, debugDescription: "No matching key found for 'name/title' property"))
         }
-
+        
         if let key = findKey("ingredients", in: container) {
             ingredients = try container.decode([String].self, forKey: key)
         } else {
@@ -59,15 +59,14 @@ extension Recipe {
         } else {
             throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath, debugDescription: "No matching key found for 'time' property"))
         }
-        
-        if let key = findKey("eatingPattern", in: container) {
-            eatingPattern = EatingPattern(rawValue: try container.decode(String.self, forKey: key)) ?? .unrestricted
-        } else if let key = findKey("diet", in: container) {
-            eatingPattern = EatingPattern(rawValue: try container.decode(String.self, forKey: key)) ?? .unrestricted
+
+        if let key = findKey("pattern", in: container) {
+            let eatingPatternRaw = try container.decode(String.self, forKey: key)
+            eatingPattern = EatingPattern(rawValue: eatingPatternRaw.lowercased()) ?? .unrestricted
         } else {
             throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath, debugDescription: "No matching key found for 'pattern/diet' property"))
         }
-
+        
         if let key = findKey("imageUrl", in: container) {
             imageUrl = try container.decodeIfPresent(URL.self, forKey: key)
         } else {

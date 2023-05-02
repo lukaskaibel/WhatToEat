@@ -40,7 +40,9 @@ class PersistenceController: ObservableObject {
     public func save() {
         do {
             try container.viewContext.save()
-            objectWillChange.send()
+            DispatchQueue.main.async {
+                self.objectWillChange.send()
+            }
             Logger().log("Context saved successfully")
         } catch {
             Logger().error("Failed to save context with error: \(error)")

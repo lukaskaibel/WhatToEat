@@ -22,7 +22,7 @@ func makeGptRequest(prompt: String, maxTokens: Int = 1024) async throws -> Strin
         let requestBodyData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
         request.httpBody = requestBodyData
         
-        Logger().log("GPT Request with body: \(requestBodyData.debugDescription)")
+        Logger().log("GPT Request with prompt: \(prompt)")
         
         let (data, response) = try await URLSession.shared.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
@@ -32,6 +32,7 @@ func makeGptRequest(prompt: String, maxTokens: Int = 1024) async throws -> Strin
         }
         let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
         let text = (jsonResponse?["choices"] as? [[String: Any]])?.first?["text"] as? String
+        Logger().log("Received GPT response: \(text ?? "nil")")
         return text
     } catch {
         Logger().error("Error: \(error.localizedDescription)")
