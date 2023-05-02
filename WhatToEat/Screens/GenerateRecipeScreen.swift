@@ -60,9 +60,13 @@ struct GenerateRecipeScreen: View {
                 Text("Eating Pattern")
                 Spacer()
                 Picker("Eating Pattern", selection: $eatingPattern) {
-                    ForEach(EatingPattern.allCases) { diataryPattern in
-                        Text(diataryPattern.rawValue.capitalized)
-                            .tag(diataryPattern)
+                    ForEach(EatingPattern.allCases) { eatingPattern in
+                        Label {
+                            Text(eatingPattern.rawValue.capitalized)
+                        } icon: {
+                            Symbol.symbol(for: eatingPattern)
+                        }
+                        .tag(eatingPattern)
                     }
                 }
             }

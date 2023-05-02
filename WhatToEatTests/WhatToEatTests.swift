@@ -41,8 +41,9 @@ final class WhatToEatTests: XCTestCase {
     }
     
     func testCreateRecipe() async throws {
-        let recipe = await createRecipe(with: ingredients)
+        let recipe = await createRecipe(with: ingredients, thatIs: .vegan)
         XCTAssertNotNil(recipe, "Recipe.create returned nil")
+        XCTAssertEqual(recipe?.eatingPattern, .vegan, "Recipe.create returned recipe with incorrect eating pattern")
     }
     
     func testDownloadImage() async throws {

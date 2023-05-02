@@ -21,6 +21,7 @@ extension PersistenceController {
                                                         "Drizzle with olive oil and sprinkle with salt.",
                                                         "Bake for 12-15 minutes or until crust is golden and cheese is bubbly."],
                             time: 45,
+                            eatingPattern: .vegetarian,
                             imageUrl: URL(string: "https://www.tazzipizza.com/wp-content/uploads/2020/11/margherita-1024x1024.jpg"),
                             isAdded: true
         )
@@ -31,6 +32,7 @@ extension PersistenceController {
                                             "Add croutons and grated Parmesan cheese.",
                                             "Toss again to combine and serve immediately."],
                             time: 20,
+                            eatingPattern: .vegetarian,
                             imageUrl: URL(string: "https://fraicheliving.com/wp-content/uploads/2022/06/Roasted-Garlic-Caesar-Salad-in-bowl-1024x1024.jpg"),
                             isAdded: true
         )
@@ -44,6 +46,7 @@ extension PersistenceController {
                                             "Drop dough by rounded tablespoons onto ungreased cookie sheets.",
                                             "Bake for 8 to 10 minutes, or until edges are golden. Cool on wire racks."],
                             time: 30,
+                            eatingPattern: .vegetarian,
                             imageUrl: URL(string: "https://savorysweetlife.com/wp-content/uploads/2009/10/CHOCOLATE-CHIP-COOKIES-3-1024x1024.jpg"),
                             isAdded: true
         )
@@ -56,6 +59,7 @@ extension PersistenceController {
                                             "Stir in parsley, red pepper flakes, salt, and black pepper.",
                                             "Serve shrimp scampi over cooked pasta or with crusty bread."],
                             time: 25,
+                            eatingPattern: .pescatarian,
                             imageUrl: URL(string: "https://insanelygoodrecipes.com/wp-content/uploads/2022/11/Ina-Garten-Shrimp-Scampi-With-Parsley-683x1024.webp"),
                             isAdded: true
         )
@@ -69,6 +73,7 @@ extension PersistenceController {
                                             "Cook for an additional 2-3 minutes, or until the sauce has thickened.",
                                             "Serve the veggie stir-fry over cooked rice or noodles."],
                             time: 75,
+                            eatingPattern: .vegan,
                             imageUrl: URL(string: "https://www.lastingredient.com/wp-content/uploads/2019/02/rainbow-vegetable-peanut-stir-fry1-1024x1024.webp"),
                             isAdded: true
         )

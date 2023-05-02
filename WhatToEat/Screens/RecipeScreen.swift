@@ -51,6 +51,7 @@ struct RecipeScreen: View {
                                                                    ingredients: recipe.ingredients,
                                                                    instructions: recipe.instructions,
                                                                    time: recipe.time,
+                                                                   eatingPattern: recipe.eatingPattern,
                                                                    imageUrl: recipe.imageUrl,
                                                                    isAdded: !recipe.isAdded)
                             } label: {
@@ -79,8 +80,15 @@ struct RecipeScreen: View {
     var metaDataSection: some View {
         HStack {
             Label("\(recipe.time) min", systemImage: "stopwatch")
-                .fontWeight(.medium)
+            Divider()
+                .frame(height: 20)
+            Label {
+                Text(recipe.eatingPattern.rawValue.capitalized)
+            } icon: {
+                Symbol.symbol(for: recipe.eatingPattern)
+            }
         }
+        .fontWeight(.medium)
     }
     
     var ingredientSection: some View {

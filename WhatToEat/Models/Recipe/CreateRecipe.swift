@@ -19,6 +19,7 @@ public func createRecipe(exclusively: Bool = false, with ingredients: [String], 
             ingredients: recipe.ingredients,
             instructions: recipe.instructions,
             time: recipe.time,
+            eatingPattern: recipe.eatingPattern,
             imageUrl: recipe.imageUrl,
             isAdded: false
         )
@@ -36,8 +37,8 @@ internal func requestRecipeJSON(exclusively: Bool = false, with ingredients: [St
             You don't need to use all ingredients if they don't fit.
             \(eatingPattern == .unrestricted ? "" : "Make sure to that the recipe is \(eatingPattern.rawValue).")
             Please get creative with the name and make the name max. 30 characters long.
-            Return just a JSON object with the name, ingredients, instructions and required time (in minutes).
-            Make sure that ingredients and instructions are lists!
+            Return just a JSON object with the name, ingredients, instructions, required time (in minutes) and eatingPattern (\(EatingPattern.allCases.map({ $0.rawValue }).joined(separator: ", ")).
+            Make sure that ingredients and instructions are lists and that the JSON keys are spelled EXACTLY as above!
         """
     Logger().info("Making GPT request with prompt: \(prompt)")
     let response = try await makeGptRequest(prompt: prompt)
@@ -66,7 +67,14 @@ internal func convertJSONToRecipe(from recipeJSON: String) async throws -> Recip
         do {
             let downloadedImageURL = try await downloadImage(from: imageURL)
             Logger().info("Created recipe: \(recipe)")
-            recipe = Recipe(id: UUID(), name: recipe.name, ingredients: recipe.ingredients, instructions: recipe.instructions, time: recipe.time, imageUrl: downloadedImageURL, isAdded: false)
+            recipe = Recipe(id: UUID(),
+                            name: recipe.name,
+                            ingredients: recipe.ingredients,
+                            instructions: recipe.instructions,
+                            time: recipe.time,
+                            eatingPattern: recipe.eatingPattern,
+                            imageUrl: downloadedImageURL,
+                            isAdded: false)
         } catch {
             Logger().error("Error downloading image: \(error.localizedDescription)")
         }

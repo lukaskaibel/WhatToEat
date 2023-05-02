@@ -35,7 +35,18 @@ struct RecipeCell: View {
                 Text(recipe.name)
                     .fontWeight(.semibold)
                     .lineLimit(1)
-                Label("\(recipe.time) min", systemImage: "stopwatch")
+                HStack {
+                    Label("\(recipe.time) min", systemImage: "stopwatch")
+                    Divider()
+                        .frame(height: 20)
+                    if recipe.eatingPattern != .unrestricted {
+                        Label {
+                            Text(recipe.eatingPattern.rawValue.capitalized)
+                        } icon: {
+                            Symbol.symbol(for: recipe.eatingPattern)
+                        }
+                    }
+                }
             }
         }
         .foregroundColor(.primary)

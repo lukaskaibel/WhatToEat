@@ -10,7 +10,7 @@ import OSLog
 
 extension PersistenceController {
     
-    public func createRecipe(id: UUID = UUID(), name: String, ingredients: [String], instructions: [String], time: Int, imageUrl: URL?, isAdded: Bool) {
+    public func createRecipe(id: UUID = UUID(), name: String, ingredients: [String], instructions: [String], time: Int, eatingPattern: EatingPattern, imageUrl: URL?, isAdded: Bool) {
         let recipe = RecipeCD(context: container.viewContext)
         recipe.id = id
         recipe.creationDate = .now
@@ -18,14 +18,15 @@ extension PersistenceController {
         recipe.ingredients = ingredients
         recipe.instructions = instructions
         recipe.time = Int16(time)
+        recipe.eatingPattern = eatingPattern
         recipe.imageUrl = imageUrl
         recipe.isAdded = isAdded
         
         save()
-        Logger().log("Successfully created RecipeCD with id: \(id), name: \(name), ingredients:\(ingredients.joined(separator: " ")), instructions: \(instructions.joined(separator: " ")), time: \(time) and imageUrl: \(imageUrl?.absoluteString ?? "nil"), isAdded: \(isAdded)")
+        Logger().log("Successfully created RecipeCD with id: \(id), name: \(name), ingredients:\(ingredients.joined(separator: " ")), instructions: \(instructions.joined(separator: " ")), time: \(time), eatingPattern: \(eatingPattern.rawValue) and imageUrl: \(imageUrl?.absoluteString ?? "nil"), isAdded: \(isAdded)")
     }
     
-    public func updateRecipe(with id: UUID, name: String, ingredients: [String], instructions: [String], time: Int, imageUrl: URL?, isAdded: Bool) {
+    public func updateRecipe(with id: UUID, name: String, ingredients: [String], instructions: [String], time: Int, eatingPattern: EatingPattern, imageUrl: URL?, isAdded: Bool) {
         do {
             guard let recipe = (try container.viewContext.fetch(RecipeCD.fetchRequest())).first(where: { $0.id == id }) else {
                 Logger().warning("Failed to update RecipeCD with id: \(id). No recipe with matching id found.")
@@ -35,10 +36,11 @@ extension PersistenceController {
             recipe.ingredients = ingredients
             recipe.instructions = instructions
             recipe.time = Int16(time)
+            recipe.eatingPattern = eatingPattern
             recipe.isAdded = isAdded
             
             save()
-            Logger().log("Successfully updated RecipeCD with id: \(id), name: \(name), ingredients:\(ingredients.joined(separator: " ")), instructions: \(instructions.joined(separator: " ")), time: \(time) and imageUrl: \(imageUrl?.absoluteString ?? "nil"), isAdded: \(isAdded)")
+            Logger().log("Successfully updated RecipeCD with id: \(id), name: \(name), ingredients:\(ingredients.joined(separator: " ")), instructions: \(instructions.joined(separator: " ")), time: \(time), eatingPattern: \(eatingPattern.rawValue) and imageUrl: \(imageUrl?.absoluteString ?? "nil"), isAdded: \(isAdded)")
         } catch {
             Logger().error("Failed to update RecipeCD with id: \(id)")
         }
@@ -63,6 +65,7 @@ extension PersistenceController {
                     ingredients: $0.ingredients!,
                     instructions: $0.instructions!,
                     time: Int($0.time),
+                    eatingPattern: $0.eatingPattern,
                     imageUrl: $0.imageUrl!,
                     isAdded: $0.isAdded
                 )}

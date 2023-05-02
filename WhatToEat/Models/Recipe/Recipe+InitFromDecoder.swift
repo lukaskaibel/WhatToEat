@@ -25,7 +25,7 @@ extension Recipe {
         }
     }
 
-    // Updated init(from decoder: Decoder) function
+    // Only used when converting from GPT generated JSON
     public init(from decoder: Decoder) throws {
         // Helper function to find a matching key, checking if the key is contained in the property name
         func findKey<T: CodingKey>(_ propertyName: String, in container: KeyedDecodingContainer<T>) -> T? {
@@ -39,7 +39,7 @@ extension Recipe {
         } else if let key = findKey("title", in: container) {
             name = try container.decode(String.self, forKey: key)
         } else {
-            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath, debugDescription: "No matching key found for 'name' property"))
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath, debugDescription: "No matching key found for 'name/title' property"))
         }
 
         if let key = findKey("ingredients", in: container) {
@@ -58,6 +58,14 @@ extension Recipe {
             time = try container.decode(Int.self, forKey: key)
         } else {
             throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath, debugDescription: "No matching key found for 'time' property"))
+        }
+        
+        if let key = findKey("eatingPattern", in: container) {
+            eatingPattern = EatingPattern(rawValue: try container.decode(String.self, forKey: key)) ?? .unrestricted
+        } else if let key = findKey("diet", in: container) {
+            eatingPattern = EatingPattern(rawValue: try container.decode(String.self, forKey: key)) ?? .unrestricted
+        } else {
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath, debugDescription: "No matching key found for 'pattern/diet' property"))
         }
 
         if let key = findKey("imageUrl", in: container) {

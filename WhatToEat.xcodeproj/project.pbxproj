@@ -35,6 +35,8 @@
 		798D1CFF29FD614A00BFE210 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798D1CFE29FD614A00BFE210 /* SectionView.swift */; };
 		798D1D0129FD632400BFE210 /* ViewStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798D1D0029FD632400BFE210 /* ViewStyles.swift */; };
 		79D1EFB929F98AD30057216B /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D1EFB829F98AD30057216B /* Secrets.swift */; };
+		79E432DF2A01542D00010D51 /* RecipeCD+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E432DE2A01542D00010D51 /* RecipeCD+.swift */; };
+		79E432E12A01596600010D51 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E432E02A01596600010D51 /* Symbol.swift */; };
 		79FB93A929F53E7200F58CD3 /* EatingPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB93A829F53E7200F58CD3 /* EatingPattern.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +83,8 @@
 		798D1CFE29FD614A00BFE210 /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		798D1D0029FD632400BFE210 /* ViewStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStyles.swift; sourceTree = "<group>"; };
 		79D1EFB829F98AD30057216B /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		79E432DE2A01542D00010D51 /* RecipeCD+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeCD+.swift"; sourceTree = "<group>"; };
+		79E432E02A01596600010D51 /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
 		79FB93A829F53E7200F58CD3 /* EatingPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatingPattern.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,6 +203,7 @@
 		79004A8329F1E8990055DCBC /* Styles */ = {
 			isa = PBXGroup;
 			children = (
+				79E432E02A01596600010D51 /* Symbol.swift */,
 				79004A8429F1E8B90055DCBC /* TextStyles.swift */,
 				798D1D0029FD632400BFE210 /* ViewStyles.swift */,
 			);
@@ -211,6 +216,7 @@
 				79004A5329F16D2C0055DCBC /* Persistence.swift */,
 				79004A8729F1EC1A0055DCBC /* Persistance+Recipe.swift */,
 				795F5EE429F6EA6300A3717B /* PersistanceController+Preview.swift */,
+				79E432DE2A01542D00010D51 /* RecipeCD+.swift */,
 				79004A5529F16D2C0055DCBC /* WhatToEat.xcdatamodeld */,
 			);
 			path = Persistance;
@@ -350,6 +356,7 @@
 				798D1CFD29FD563F00BFE210 /* StepView.swift in Sources */,
 				79004A8029F1E7BF0055DCBC /* ProfileScreen.swift in Sources */,
 				798D1CFB29FD4EBD00BFE210 /* RecentRecipesScreen.swift in Sources */,
+				79E432E12A01596600010D51 /* Symbol.swift in Sources */,
 				7960B82229F871FC001753E2 /* CreateRecipe.swift in Sources */,
 				79004A8829F1EC1A0055DCBC /* Persistance+Recipe.swift in Sources */,
 				79004A4B29F16D2B0055DCBC /* WhatToEatApp.swift in Sources */,
@@ -359,6 +366,7 @@
 				7960B82029F870A8001753E2 /* Recipe+InitFromDecoder.swift in Sources */,
 				794D5AD629FDCE7F00FCD12E /* RecipeTyleView.swift in Sources */,
 				79004A8529F1E8B90055DCBC /* TextStyles.swift in Sources */,
+				79E432DF2A01542D00010D51 /* RecipeCD+.swift in Sources */,
 				798D1CFF29FD614A00BFE210 /* SectionView.swift in Sources */,
 				79004A7A29F188C70055DCBC /* RecipeScreen.swift in Sources */,
 				79004A7529F17CF20055DCBC /* JSONUtilities.swift in Sources */,
