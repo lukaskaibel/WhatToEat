@@ -53,7 +53,7 @@ struct StepView: View {
                 }
             }) {
                 Text(continueText)
-                    .fontWeight(.semibold)
+                    .fontWeight(.bold)
                     .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: 400)
@@ -71,6 +71,7 @@ struct StepView: View {
                 }
             }) {
                 Text(backText)
+                    .fontWeight(.semibold)
                     .padding()
             }
         }

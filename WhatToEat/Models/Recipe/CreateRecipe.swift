@@ -8,9 +8,12 @@
 import Foundation
 import OSLog
 
-public func createRecipe(exclusively: Bool = false, with ingredients: [String], thatIs eatingPattern: EatingPattern = .unrestricted) async -> Recipe? {
+public func createRecipe(exclusively: Bool = false,
+                         with ingredients: [String],
+                         thatIs eatingPattern: EatingPattern = .unrestricted,
+                         for nutritionalGoal: NutritionalGoal) async -> Recipe? {
     do {
-        let recipeJSON = try await requestRecipeJSON(exclusively: exclusively, with: ingredients, thatIs: eatingPattern)
+        let recipeJSON = try await requestRecipeJSON(exclusively: exclusively, with: ingredients, thatIs: eatingPattern, for: nutritionalGoal)
         guard let recipeJSON = recipeJSON else { return nil }
         guard let recipe = try await convertJSONToRecipe(from: recipeJSON) else { return nil }
         PersistenceController.shared.createRecipe(
@@ -29,13 +32,15 @@ public func createRecipe(exclusively: Bool = false, with ingredients: [String], 
     }
 }
 
-internal func requestRecipeJSON(exclusively: Bool = false, with ingredients: [String], thatIs eatingPattern: EatingPattern = .unrestricted) async throws -> String? {
+internal func requestRecipeJSON(exclusively: Bool = false,
+                                with ingredients: [String],
+                                thatIs eatingPattern: EatingPattern = .unrestricted,
+                                for nutritionalGoal: NutritionalGoal) async throws -> String? {
     let prompt =
         """
-            \(ingredients.isEmpty ? "" : "I have the following ingredients: \(ingredients.joined(separator: ", ")).")
-            Please suggest a great tasting \(eatingPattern == .unrestricted ? "" : eatingPattern.rawValue) recipe \(exclusively ? "that ONLY uses those ingredients" : "").
+            Please suggest a great tasting \(eatingPattern == .unrestricted ? "" : eatingPattern.rawValue)\(nutritionalGoal == .none ? "" : " " + nutritionalGoal.rawValue) recipe \(ingredients.isEmpty ? "" : "that \(exclusively ? "exclusively" : "") uses the following ingredients: \(ingredients.joined(separator: ", "))").
             You don't need to use all ingredients if they don't fit.
-            \(eatingPattern == .unrestricted ? "" : "Make sure to that the recipe is \(eatingPattern.rawValue).")
+            \(eatingPattern == .unrestricted && nutritionalGoal == .none ? "" : "Make sure to that the recipe is \(eatingPattern == .unrestricted ? "" : eatingPattern.rawValue) \(nutritionalGoal == .none ? "" : nutritionalGoal.rawValue).")
             Please get creative with the name and make the name max. 30 characters long.
             Return just a JSON object with the name, ingredients, instructions, required time (in minutes) and eatingPattern (\(EatingPattern.allCases.map({ $0.rawValue }).joined(separator: ", ")).
             Make sure that ingredients and instructions are lists and that the JSON keys are spelled EXACTLY as above!

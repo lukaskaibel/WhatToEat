@@ -35,6 +35,7 @@
 		798D1CFF29FD614A00BFE210 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798D1CFE29FD614A00BFE210 /* SectionView.swift */; };
 		798D1D0129FD632400BFE210 /* ViewStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798D1D0029FD632400BFE210 /* ViewStyles.swift */; };
 		79D1EFB929F98AD30057216B /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D1EFB829F98AD30057216B /* Secrets.swift */; };
+		79E427DB2A01BD1A00C45252 /* NutritionalGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E427DA2A01BD1A00C45252 /* NutritionalGoal.swift */; };
 		79E432DF2A01542D00010D51 /* RecipeCD+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E432DE2A01542D00010D51 /* RecipeCD+.swift */; };
 		79E432E12A01596600010D51 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E432E02A01596600010D51 /* Symbol.swift */; };
 		79FB93A929F53E7200F58CD3 /* EatingPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB93A829F53E7200F58CD3 /* EatingPattern.swift */; };
@@ -83,6 +84,7 @@
 		798D1CFE29FD614A00BFE210 /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		798D1D0029FD632400BFE210 /* ViewStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStyles.swift; sourceTree = "<group>"; };
 		79D1EFB829F98AD30057216B /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		79E427DA2A01BD1A00C45252 /* NutritionalGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionalGoal.swift; sourceTree = "<group>"; };
 		79E432DE2A01542D00010D51 /* RecipeCD+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeCD+.swift"; sourceTree = "<group>"; };
 		79E432E02A01596600010D51 /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
 		79FB93A829F53E7200F58CD3 /* EatingPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatingPattern.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				79FB93A829F53E7200F58CD3 /* EatingPattern.swift */,
+				79E427DA2A01BD1A00C45252 /* NutritionalGoal.swift */,
 				7960B81E29F8708C001753E2 /* Recipe */,
 			);
 			path = Models;
@@ -226,9 +229,9 @@
 			isa = PBXGroup;
 			children = (
 				79004A8A29F1F77F0055DCBC /* RecipeCell.swift */,
+				794D5AD529FDCE7F00FCD12E /* RecipeTyleView.swift */,
 				798D1CFE29FD614A00BFE210 /* SectionView.swift */,
 				798D1CFC29FD563F00BFE210 /* StepView.swift */,
-				794D5AD529FDCE7F00FCD12E /* RecipeTyleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 			files = (
 				798D1D0129FD632400BFE210 /* ViewStyles.swift in Sources */,
 				79004A8B29F1F77F0055DCBC /* RecipeCell.swift in Sources */,
+				79E427DB2A01BD1A00C45252 /* NutritionalGoal.swift in Sources */,
 				79D1EFB929F98AD30057216B /* Secrets.swift in Sources */,
 				7960B81D29F86687001753E2 /* DownloadImage.swift in Sources */,
 				79004A7729F180590055DCBC /* DALLERequest.swift in Sources */,

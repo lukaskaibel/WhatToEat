@@ -10,16 +10,29 @@ import SwiftUI
 struct ProfileScreen: View {
     
     @AppStorage("eatingPattern") var eatingPattern: EatingPattern = .unrestricted
+    @AppStorage("nutritionalGoal") var nutritionalGoal: NutritionalGoal = .none
     
     var body: some View {
         List {
             Section {
                 Picker("Eating Pattern", selection: $eatingPattern) {
-                    ForEach(EatingPattern.allCases) { diataryPattern in
-                        Text(diataryPattern.rawValue.capitalized)
-                            .tag(diataryPattern)
+                    ForEach(EatingPattern.allCases) { eatingPattern in
+                        Label {
+                            Text(eatingPattern.rawValue.capitalized)
+                        } icon: {
+                            Symbol.symbol(for: eatingPattern)
+                        }
+                        .tag(eatingPattern)
                     }
                 }
+                Picker("Nutritional Goal", selection: $nutritionalGoal) {
+                    ForEach(NutritionalGoal.allCases) { nutritionalGoal in
+                        Text(nutritionalGoal.rawValue.capitalized)
+                            .tag(nutritionalGoal)
+                    }
+                }
+            } header: {
+                Text("Dietary Lifestyle")
             }
             Section {
                 NavigationLink(destination: RecentRecipesScreen()) {

@@ -35,13 +35,13 @@ final class WhatToEatTests: XCTestCase {
     }
     
     func testRequestRecipeJSON() async throws {
-        let recipeJSON = try await requestRecipeJSON(with: ingredients)
+        let recipeJSON = try await requestRecipeJSON(with: ingredients, for: .none)
         
         XCTAssertNotNil(recipeJSON, "Recipe JSON object is nil")
     }
     
     func testCreateRecipe() async throws {
-        let recipe = await createRecipe(with: ingredients, thatIs: .vegan)
+        let recipe = await createRecipe(with: ingredients, thatIs: .vegan, for: .highProtein)
         XCTAssertNotNil(recipe, "Recipe.create returned nil")
         XCTAssertEqual(recipe?.eatingPattern, .vegan, "Recipe.create returned recipe with incorrect eating pattern")
     }
