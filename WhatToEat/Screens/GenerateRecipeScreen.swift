@@ -27,28 +27,33 @@ struct GenerateRecipeScreen: View {
     }
     
     var body: some View {
-        Group {
+        VStack {
+            StepProgressView(currentStep: currentStep, stepSymbols: [Image(systemName: "person.fill"), Image(systemName: "list.bullet"), Image(systemName: "gearshape.2.fill")])
+                .padding()
             if isGeneratingRecipe {
                 VStack(spacing: 20) {
                     ProgressView()
                     Text("Generating Recipe ...")
                 }
+                .frame(height: 350)
             } else {
-                StepView(
-                    currentStep: $currentStep,
-                    contents: [AnyView(personalProfileStep), AnyView(ingredientsStep)],
-                    continueText: currentStep < 1 ? "Continue" : notEnoughIngredients ? "\(ingredients.count)/\(MIN_INGREDIENTS_WHEN_EXCLUSIVELY) Ingredients" : "Generate Recipe",
-                    backText: "Back"
-                ) {
-                    if currentStep == 1 {
-                        isGeneratingRecipe = true
-                        Task {
-                            recipe = await createRecipe(exclusively: exclusively, with: ingredients, thatIs: eatingPattern, for: nutritionalGoal)
-                            isGeneratingRecipe = false
-                        }
+                VStack {
+                    TabView(selection: $currentStep) {
+                        personalProfileStep
+                            .padding()
+                            .tag(0)
+                        ingredientsStep
+                            .padding()
+                            .tag(1)
                     }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .frame(height: 350)
+                    Spacer()
+                    navigationButtons
+                        .padding()
                 }
             }
+            Spacer()
         }
         .navigationTitle("Create")
         .sheet(item: $recipe) { recipe in
@@ -88,7 +93,6 @@ struct GenerateRecipeScreen: View {
         }
         .padding()
         .tileStyle()
-        .padding()
     }
     
     private var ingredientsStep: some View {
@@ -127,7 +131,40 @@ struct GenerateRecipeScreen: View {
         }
         .padding()
         .tileStyle()
-        .padding()
+    }
+    
+    private var navigationButtons: some View {
+        VStack {
+            Button {
+                if currentStep == 1 {
+                    isGeneratingRecipe = true
+//                    Task {
+//                        recipe = await createRecipe(exclusively: exclusively, with: ingredients, thatIs: eatingPattern, for: nutritionalGoal)
+//                        isGeneratingRecipe = false
+//                    }
+                }
+                withAnimation {
+                    currentStep = currentStep < 2 ? currentStep + 1 : 1
+                }
+            } label: {
+                Text(currentStep < 1 ? "Continue" : notEnoughIngredients ? "\(ingredients.count)/\(MIN_INGREDIENTS_WHEN_EXCLUSIVELY) Ingredients" : "Generate Recipe")
+                    .fontWeight(.bold)
+                    .foregroundColor(currentStep < 1 ? .accentColor : .white)
+                    .padding()
+                    .frame(maxWidth: 400)
+                    .background(currentStep < 1 ? Color.accentColor.opacity(0.2) : Color.accentColor)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            Button {
+                withAnimation {
+                    currentStep = currentStep > 0 ? currentStep - 1 : 0
+                }
+            } label: {
+                Text("Back")
+                    .fontWeight(.semibold)
+                    .padding()
+            }
+        }
     }
 }
 
