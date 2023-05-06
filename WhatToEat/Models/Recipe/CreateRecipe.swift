@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 public func createRecipe(exclusively: Bool = false,
-                         with ingredients: [String],
+                         with ingredients: [String] = [],
                          thatIs eatingPattern: EatingPattern = .unrestricted,
                          for nutritionalGoal: NutritionalGoal) async -> Recipe? {
     do {

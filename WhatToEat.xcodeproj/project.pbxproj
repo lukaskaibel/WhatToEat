@@ -39,6 +39,7 @@
 		79E427DB2A01BD1A00C45252 /* NutritionalGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E427DA2A01BD1A00C45252 /* NutritionalGoal.swift */; };
 		79E432DF2A01542D00010D51 /* RecipeCD+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E432DE2A01542D00010D51 /* RecipeCD+.swift */; };
 		79E432E12A01596600010D51 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E432E02A01596600010D51 /* Symbol.swift */; };
+		79E50E6A2A06E8B200F13CD0 /* WeeklyRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E50E692A06E8B200F13CD0 /* WeeklyRecipe.swift */; };
 		79FB93A929F53E7200F58CD3 /* EatingPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB93A829F53E7200F58CD3 /* EatingPattern.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		79E427DA2A01BD1A00C45252 /* NutritionalGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionalGoal.swift; sourceTree = "<group>"; };
 		79E432DE2A01542D00010D51 /* RecipeCD+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeCD+.swift"; sourceTree = "<group>"; };
 		79E432E02A01596600010D51 /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
+		79E50E692A06E8B200F13CD0 /* WeeklyRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRecipe.swift; sourceTree = "<group>"; };
 		79FB93A829F53E7200F58CD3 /* EatingPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatingPattern.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,6 +139,7 @@
 				79004A4A29F16D2B0055DCBC /* WhatToEatApp.swift */,
 				79004A4E29F16D2C0055DCBC /* Assets.xcassets */,
 				79004A8629F1EB030055DCBC /* Persistance */,
+				79E50E6B2A06F68800F13CD0 /* Extensions */,
 				79004A7329F17CA30055DCBC /* Helper */,
 				79004A6029F16E750055DCBC /* Models */,
 				79004A6329F170570055DCBC /* Networking */,
@@ -245,8 +248,16 @@
 				7960B82129F871FC001753E2 /* CreateRecipe.swift */,
 				79004A5E29F16DFE0055DCBC /* Recipe.swift */,
 				7960B81F29F870A8001753E2 /* Recipe+InitFromDecoder.swift */,
+				79E50E692A06E8B200F13CD0 /* WeeklyRecipe.swift */,
 			);
 			path = Recipe;
+			sourceTree = "<group>";
+		};
+		79E50E6B2A06F68800F13CD0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,6 +380,7 @@
 				79004A4B29F16D2B0055DCBC /* WhatToEatApp.swift in Sources */,
 				79004A5729F16D2C0055DCBC /* WhatToEat.xcdatamodeld in Sources */,
 				79004A5F29F16DFE0055DCBC /* Recipe.swift in Sources */,
+				79E50E6A2A06E8B200F13CD0 /* WeeklyRecipe.swift in Sources */,
 				79FB93A929F53E7200F58CD3 /* EatingPattern.swift in Sources */,
 				7960B82029F870A8001753E2 /* Recipe+InitFromDecoder.swift in Sources */,
 				794D5AD629FDCE7F00FCD12E /* RecipeTyleView.swift in Sources */,

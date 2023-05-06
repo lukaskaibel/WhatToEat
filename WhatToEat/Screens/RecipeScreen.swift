@@ -53,7 +53,8 @@ struct RecipeScreen: View {
                                                                    time: recipe.time,
                                                                    eatingPattern: recipe.eatingPattern,
                                                                    imageUrl: recipe.imageUrl,
-                                                                   isAdded: !recipe.isAdded)
+                                                                   isAdded: !recipe.isAdded,
+                                                                   creationDate: recipe.creationDate)
                             } label: {
                                 Image(systemName: recipe.isAdded ? "checkmark.circle.fill" : "plus.circle")
                                     .font(.title)

@@ -10,7 +10,14 @@ import OSLog
 
 extension PersistenceController {
     
-    public func createRecipe(id: UUID = UUID(), name: String, ingredients: [String], instructions: [String], time: Int, eatingPattern: EatingPattern, imageUrl: URL?, isAdded: Bool) {
+    public func createRecipe(id: UUID = UUID(),
+                             name: String,
+                             ingredients: [String],
+                             instructions: [String],
+                             time: Int,
+                             eatingPattern: EatingPattern,
+                             imageUrl: URL?,
+                             isAdded: Bool) {
         let recipe = RecipeCD(context: container.viewContext)
         recipe.id = id
         recipe.creationDate = .now
@@ -26,7 +33,17 @@ extension PersistenceController {
         Logger().log("Successfully created RecipeCD with id: \(id), name: \(name), ingredients:\(ingredients.joined(separator: " ")), instructions: \(instructions.joined(separator: " ")), time: \(time), eatingPattern: \(eatingPattern.rawValue) and imageUrl: \(imageUrl?.absoluteString ?? "nil"), isAdded: \(isAdded)")
     }
     
-    public func updateRecipe(with id: UUID, name: String, ingredients: [String], instructions: [String], time: Int, eatingPattern: EatingPattern, imageUrl: URL?, isAdded: Bool) {
+    public func updateRecipe(
+        with id: UUID,
+        name: String,
+        ingredients: [String],
+        instructions: [String],
+        time: Int,
+        eatingPattern: EatingPattern,
+        imageUrl: URL?,
+        isAdded: Bool,
+        creationDate: Date
+    ) {
         do {
             guard let recipe = (try container.viewContext.fetch(RecipeCD.fetchRequest())).first(where: { $0.id == id }) else {
                 Logger().warning("Failed to update RecipeCD with id: \(id). No recipe with matching id found.")
@@ -38,6 +55,7 @@ extension PersistenceController {
             recipe.time = Int16(time)
             recipe.eatingPattern = eatingPattern
             recipe.isAdded = isAdded
+            recipe.creationDate = creationDate
             
             save()
             Logger().log("Successfully updated RecipeCD with id: \(id), name: \(name), ingredients:\(ingredients.joined(separator: " ")), instructions: \(instructions.joined(separator: " ")), time: \(time), eatingPattern: \(eatingPattern.rawValue) and imageUrl: \(imageUrl?.absoluteString ?? "nil"), isAdded: \(isAdded)")

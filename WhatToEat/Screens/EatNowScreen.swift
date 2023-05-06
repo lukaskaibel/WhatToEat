@@ -11,6 +11,7 @@ struct EatNowScreen: View {
     
     @EnvironmentObject private var persistenceController: PersistenceController
     
+    @State private var weeklyRecipe: Recipe?
     @State private var selectedRecipe: Recipe?
     
     var body: some View {
@@ -25,11 +26,13 @@ struct EatNowScreen: View {
             .padding()
             .padding(.top)
             .frame(maxWidth: .infinity, alignment: .leading)
-            RecipeTyleView(recipe: Recipe.test, title: "Weekly Recipe", subtitle: "UPDATED ON MONDAY")
-                .onTapGesture {
-                    selectedRecipe = Recipe.test
-                }
-                .padding(.horizontal)
+            if let weeklyRecipe = weeklyRecipe {
+                RecipeTyleView(recipe: weeklyRecipe, title: "Weekly Recipe", subtitle: "UPDATES ON MONDAY")
+                    .onTapGesture {
+                        selectedRecipe = weeklyRecipe
+                    }
+                    .padding(.horizontal)
+            }
             VStack(alignment: .leading, spacing: 0) {
                 Text("Recently Created")
                     .sectionHeaderStyle()
@@ -54,6 +57,12 @@ struct EatNowScreen: View {
         }
         .sheet(item: $selectedRecipe) { recipe in
             RecipeScreen(recipe: recipe)
+        }
+        .onAppear {
+            Task {
+                await updateWeeklyRecipesIfNeeded()
+                weeklyRecipe = await getWeeklyRecipe()
+            }
         }
     }
     
