@@ -14,34 +14,21 @@ public func generateRecipe(exclusively: Bool = false,
                          thatIs eatingPattern: EatingPattern = .unrestricted,
                          for nutritionalGoal: NutritionalGoal) -> AnyPublisher<Recipe, Error> {
     return makeGptRequest(prompt: makePromptForRecipe(exclusively: exclusively, with: ingredients, thatIs: eatingPattern, for: nutritionalGoal))
-        .map { response -> String? in
-            let recipeJSON = extractJsonFromString(response)
-            return recipeJSON
-        }
-        .tryMap { recipeJSON -> Recipe in
-            let jsonDecoder = JSONDecoder()
-            jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-            guard let jsonData = recipeJSON?.data(using: .utf8) else {
+        .tryMap { response -> Recipe in
+            guard let jsonData = extractJsonDataFromString(response) else {
                 throw NSError(domain: "Error: Unable to convert recipeJSON to Data", code: -1, userInfo: nil)
             }
-            return try jsonDecoder.decode(Recipe.self, from: jsonData)
+            return try PersistenceController.shared.createRecipe(from: jsonData)
         }
         .flatMap { recipe -> AnyPublisher<Recipe, Error> in
-            makeDALLERequest(for: "\(recipe.name) with ingredients: \(recipe.ingredients.joined(separator: ", ")). The dish should be the focus of the image.")
+            makeDALLERequest(for: "\(recipe.name ?? "Recipe") with ingredients: \((recipe.ingredients ?? []).joined(separator: ", ")). The dish should be the focus of the image.")
                 .flatMap { imageUrl -> AnyPublisher<URL, Error> in
                     downloadImage(from: imageUrl)
                 }
                 .map { downloadedImageURL -> Recipe in
-                    Logger().info("Created recipe: \(recipe)")
-                    
-                    return Recipe(id: UUID(),
-                                  name: recipe.name,
-                                  ingredients: recipe.ingredients,
-                                  instructions: recipe.instructions,
-                                  time: recipe.time,
-                                  eatingPattern: recipe.eatingPattern,
-                                  imageUrl: downloadedImageURL,
-                                  isAdded: false)
+                    recipe.imageUrl = downloadedImageURL
+                    PersistenceController.shared.save()
+                    return recipe
                 }
                 .eraseToAnyPublisher()
         }

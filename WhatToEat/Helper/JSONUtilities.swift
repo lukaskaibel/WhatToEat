@@ -8,21 +8,22 @@
 import Foundation
 import OSLog
 
-func extractJsonFromString(_ inputString: String) -> String? {
-    guard let data = inputString.data(using: .utf8) else {
-        Logger().error("Failed to convert input string to data")
+func extractJsonDataFromString(_ inputString: String) -> Data? {
+    guard let startRange = inputString.range(of: "{"),
+          let endRange = inputString.range(of: "}", options: .backwards) else {
+        Logger().error("Failed to find JSON boundaries in input string")
         return nil
     }
-    
-    do {
-        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-        if let jsonData = try? JSONSerialization.data(withJSONObject: json ?? [:], options: .prettyPrinted) {
-            return String(data: jsonData, encoding: .utf8)
-        }
-    } catch {
-        Logger().error("Error parsing JSON: \(error.localizedDescription)")
+
+    let jsonRange = startRange.lowerBound..<endRange.upperBound
+    let jsonString = String(inputString[jsonRange])
+
+    guard let jsonData = jsonString.data(using: .utf8),
+          (try? JSONSerialization.jsonObject(with: jsonData)) != nil else {
+        Logger().error("Invalid JSON extracted from input string")
+        return nil
     }
-    
-    Logger().error("Failed to extract JSON from input string")
-    return nil
+
+    return jsonData
 }
+

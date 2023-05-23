@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct RecipeCell: View {
-    let recipe: Recipe
+    
+    @ObservedObject var recipe: Recipe
     
     var body: some View {
         HStack(spacing: 12) {
@@ -24,7 +25,7 @@ struct RecipeCell: View {
             }
             VStack(alignment: .leading, spacing: 2) {
                 HStack {
-                    Text(recipe.creationDate.formatted(date: .numeric, time: .omitted))
+                    Text(recipe.creationDate?.formatted(date: .numeric, time: .omitted) ?? "")
                     Spacer()
                     if recipe.isAdded {
                         Image(systemName: "checkmark.circle")
@@ -32,7 +33,7 @@ struct RecipeCell: View {
                 }
                 .font(.caption.weight(.semibold))
                 .foregroundColor(.secondary)
-                Text(recipe.name)
+                Text(recipe.name ?? "No Name")
                     .fontWeight(.semibold)
                     .lineLimit(1)
                 HStack {

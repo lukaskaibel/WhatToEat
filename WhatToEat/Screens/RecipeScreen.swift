@@ -12,7 +12,7 @@ struct RecipeScreen: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var persistenceController: PersistenceController
         
-    let recipe: Recipe
+    @ObservedObject var recipe: Recipe
     
     var body: some View {
         ScrollView {
@@ -41,20 +41,12 @@ struct RecipeScreen: View {
                     ZStack {
                         LinearGradient(colors: [.clear, .black], startPoint: .center, endPoint: .bottom)
                         HStack {
-                            Text("\(recipe.name)")
+                            Text(recipe.name ?? "No Name")
                                 .font(.largeTitle.weight(.bold))
                                 .lineLimit(2)
                             Spacer()
                             Button {
-                                persistenceController.updateRecipe(with: recipe.id,
-                                                                   name: recipe.name,
-                                                                   ingredients: recipe.ingredients,
-                                                                   instructions: recipe.instructions,
-                                                                   time: recipe.time,
-                                                                   eatingPattern: recipe.eatingPattern,
-                                                                   imageUrl: recipe.imageUrl,
-                                                                   isAdded: !recipe.isAdded,
-                                                                   creationDate: recipe.creationDate)
+                                recipe.isAdded = !recipe.isAdded
                             } label: {
                                 Image(systemName: recipe.isAdded ? "checkmark.circle.fill" : "plus.circle")
                                     .font(.title)
@@ -70,7 +62,7 @@ struct RecipeScreen: View {
                 .fill(.quaternary)
                 .overlay {
                     ProgressView()
-                    Text("\(recipe.name)")
+                    Text(recipe.name ?? "No Name")
                         .font(.largeTitle.weight(.bold))
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                         .padding()
@@ -97,7 +89,7 @@ struct RecipeScreen: View {
             Text("Ingredients")
                 .sectionHeaderStyle()
             VStack(alignment: .leading, spacing: 10) {
-                ForEach(Array(recipe.ingredients.enumerated()), id:\.element) { index, ingredient in
+                ForEach(Array((recipe.ingredients ?? []).enumerated()), id:\.element) { index, ingredient in
                     HStack(spacing: 15) {
                         Text("·")
                         Text("\(ingredient)")
@@ -114,7 +106,7 @@ struct RecipeScreen: View {
             Text("Instructions")
                 .sectionHeaderStyle()
             VStack(alignment: .leading, spacing: 15) {
-                ForEach(Array(recipe.instructions.enumerated()), id:\.element) { index, instruction in
+                ForEach(Array((recipe.instructions ?? []).enumerated()), id:\.element) { index, instruction in
                     HStack(spacing: 15) {
                         Text("\(index + 1).")
                         Text("\(instruction)")

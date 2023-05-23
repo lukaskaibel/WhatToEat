@@ -17,7 +17,7 @@ struct MyRecipesScreen: View {
     private var myRecipes: [Recipe] {
         (persistenceController.getRecipes(nameIncluding: searchedText) ?? [])
             .filter { $0.isAdded }
-            .sorted { $0.name < $1.name }
+            .sorted { $0.name ?? "" < $1.name ?? "" }
     }
     
     var body: some View {

@@ -154,7 +154,6 @@ struct GenerateRecipeScreen: View {
                                 isGeneratingRecipe = false
                             }
                         }, receiveValue: { createdRecipe in
-                            storeRecipe(createdRecipe)
                             recipe = createdRecipe
                             reset()
                         })

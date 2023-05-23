@@ -11,7 +11,7 @@ struct RecipeTyleView: View {
     
     @EnvironmentObject var persistenceController: PersistenceController
     
-    let recipe: Recipe
+    @ObservedObject var recipe: Recipe
     let title: String
     let subtitle: String
     
@@ -32,22 +32,14 @@ struct RecipeTyleView: View {
                 .overlay {
                     HStack {
                         VStack(alignment: .leading, spacing: 2) {
-                            Text(recipe.name)
+                            Text(recipe.name ?? "No Name")
                                 .fontWeight(.semibold)
                                 .lineLimit(1)
                             Label("\(recipe.time) min", systemImage: "stopwatch")
                         }
                         Spacer()
                         Button {
-                            persistenceController.updateRecipe(with: recipe.id,
-                                                               name: recipe.name,
-                                                               ingredients: recipe.ingredients,
-                                                               instructions: recipe.instructions,
-                                                               time: recipe.time,
-                                                               eatingPattern: recipe.eatingPattern,
-                                                               imageUrl: recipe.imageUrl,
-                                                               isAdded: !recipe.isAdded,
-                                                               creationDate: recipe.creationDate)
+                            recipe.isAdded = !recipe.isAdded
                         } label: {
                             Image(systemName: recipe.isAdded ? "checkmark.circle.fill" : "plus.circle")
                                 .font(.title2.weight(.bold))
