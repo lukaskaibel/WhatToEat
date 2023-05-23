@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 private let MIN_INGREDIENTS_WHEN_EXCLUSIVELY = 3
 
@@ -15,11 +16,11 @@ struct GenerateRecipeScreen: View {
     @State private var ingredients = [String]()
     @State private var eatingPattern: EatingPattern = EatingPattern(rawValue: UserDefaults.standard.object(forKey: "eatingPattern") as? String ?? "") ?? .unrestricted
     @State private var nutritionalGoal: NutritionalGoal = NutritionalGoal(rawValue: UserDefaults.standard.object(forKey: "nutritionalGoal") as? String ?? "") ?? .none
-    @State private var makeDefaultIsOn: Bool = false
     @State private var exclusively = false
     @State private var isGeneratingRecipe = false
     @State private var recipe: Recipe? = nil
     @State private var currentStep: Int = 0
+    @State private var cancellables = Set<AnyCancellable>()
     @FocusState private var addIngredientIsFocused: Bool
     
     private var notEnoughIngredients: Bool {
@@ -136,15 +137,28 @@ struct GenerateRecipeScreen: View {
     private var navigationButtons: some View {
         VStack {
             Button {
-                if currentStep == 1 {
-                    isGeneratingRecipe = true
-//                    Task {
-//                        recipe = await createRecipe(exclusively: exclusively, with: ingredients, thatIs: eatingPattern, for: nutritionalGoal)
-//                        isGeneratingRecipe = false
-//                    }
-                }
                 withAnimation {
-                    currentStep = currentStep < 2 ? currentStep + 1 : 1
+                    currentStep = currentStep < 2 ? currentStep + 1 : 2
+                }
+                if currentStep == 2 {
+                    isGeneratingRecipe = true
+                    ingredients.append(enteredIngredient)
+                    generateRecipe(exclusively: exclusively, with: ingredients, thatIs: eatingPattern, for: nutritionalGoal)
+                        .receive(on: DispatchQueue.main)
+                        .sink(receiveCompletion: { completion in
+                            switch completion {
+                            case .finished:
+                                isGeneratingRecipe = false
+                            case .failure:
+                                // Handle the error
+                                isGeneratingRecipe = false
+                            }
+                        }, receiveValue: { createdRecipe in
+                            storeRecipe(createdRecipe)
+                            recipe = createdRecipe
+                            reset()
+                        })
+                        .store(in: &cancellables)
                 }
             } label: {
                 Text(currentStep < 1 ? "Continue" : notEnoughIngredients ? "\(ingredients.count)/\(MIN_INGREDIENTS_WHEN_EXCLUSIVELY) Ingredients" : "Generate Recipe")
@@ -165,6 +179,12 @@ struct GenerateRecipeScreen: View {
                     .padding()
             }
         }
+    }
+    
+    private func reset() {
+        ingredients = []
+        currentStep = 0
+        enteredIngredient = ""
     }
 }
 

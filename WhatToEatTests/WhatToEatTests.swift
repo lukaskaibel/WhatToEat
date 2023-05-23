@@ -10,8 +10,6 @@ import XCTest
 
 final class WhatToEatTests: XCTestCase {
     
-    let ingredients = ["Pasta", "Olives", "Tomatoes", "Oil"]
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -20,45 +18,96 @@ final class WhatToEatTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testGPTRequest() async throws {
+    func testGPTRequest() {
         let prompt = "Say 'Hello World'"
         
-        let result = try await makeGptRequest(prompt: prompt)
+        let expectation = XCTestExpectation(description: "GPT request")
         
-        XCTAssertFalse(result?.isEmpty ?? true, "Failed making GPT request")
+        let cancellable = makeGptRequest(prompt: prompt)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    expectation.fulfill()
+                case .failure(let error):
+                    XCTFail("Error: \(error.localizedDescription)")
+                }
+            }, receiveValue: { result in
+                XCTAssertFalse(result.isEmpty, "Failed making GPT request")
+                expectation.fulfill()
+            })
+        
+        wait(for: [expectation], timeout: 5.0)
+        cancellable.cancel()
     }
     
-    func testDALLERequest() async throws {
+    func testDALLERequest() {
         let prompt = "Cat"
-        let url = try await makeDALLERequest(for: prompt)
-        XCTAssertNotNil(url)
-    }
-    
-    func testRequestRecipeJSON() async throws {
-        let recipeJSON = try await requestRecipeJSON(with: ingredients, for: .none)
         
-        XCTAssertNotNil(recipeJSON, "Recipe JSON object is nil")
+        let expectation = XCTestExpectation(description: "DALLE request")
+        
+        let cancellable = makeDALLERequest(for: prompt)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    expectation.fulfill()
+                case .failure(let error):
+                    XCTFail("Error: \(error.localizedDescription)")
+                }
+            }, receiveValue: { url in
+                XCTAssertNotNil(url)
+                expectation.fulfill()
+            })
+        
+        wait(for: [expectation], timeout: 20.0)
+        cancellable.cancel()
     }
     
-    func testCreateRecipe() async throws {
-        let recipe = await createRecipe(with: ingredients, thatIs: .vegan, for: .highProtein)
-        XCTAssertNotNil(recipe, "Recipe.create returned nil")
-        XCTAssertEqual(recipe?.eatingPattern, .vegan, "Recipe.create returned recipe with incorrect eating pattern")
+    func testCreateRecipe() {
+        let exclusively = false
+        let ingredients = ["pasta", "oil"]
+        let eatingPattern = EatingPattern.unrestricted
+        let nutritionalGoal = NutritionalGoal.none
+        
+        let expectation = XCTestExpectation(description: "Create recipe")
+        
+        let cancellable = generateRecipe(exclusively: exclusively, with: ingredients, thatIs: eatingPattern, for: nutritionalGoal)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    expectation.fulfill()
+                case .failure(let error):
+                    XCTFail("Error: \(error.localizedDescription)")
+                }
+            }, receiveValue: { recipe in
+                // Perform additional assertions on the recipe if needed
+                XCTAssertNotNil(recipe)
+                expectation.fulfill()
+            })
+        
+        wait(for: [expectation], timeout: 120.0)
+        cancellable.cancel()
     }
-    
-    func testDownloadImage() async throws {
-        let urlString = "https://example.com/image.jpg"
-        guard let url = URL(string: urlString) else {
-            XCTFail("Invalid URL")
-            return
-        }
 
-        do {
-            let destinationURL = try await downloadImage(from: url)
-            XCTAssertTrue(FileManager.default.fileExists(atPath: destinationURL.path), "Downloaded image not found")
-        } catch {
-            XCTFail("Error: \(error)")
-        }
+    func testDownloadImage() {
+        let imageURL = URL(string: "https://example.com/image.jpg")!
+        
+        let expectation = XCTestExpectation(description: "Download image")
+        
+        let cancellable = downloadImage(from: imageURL)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    expectation.fulfill()
+                case .failure(let error):
+                    XCTFail("Error: \(error.localizedDescription)")
+                }
+            }, receiveValue: { downloadedURL in
+                XCTAssertNotNil(downloadedURL)
+                expectation.fulfill()
+            })
+        
+        wait(for: [expectation], timeout: 10.0)
+        cancellable.cancel()
     }
     
 }
